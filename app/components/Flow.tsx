@@ -20,25 +20,36 @@ export default function App() {
   const initialNodes: Node[] = [
     {
       id: "1",
-      position: { x: 100, y: 100 },
+      position: { x: 0, y: 0 },
       data: { label: "Node 1" },
       type: "default",
     },
     {
       id: "2",
-      position: { x: 300, y: 100 },
+      position: { x: 100, y: 100 },
       data: { label: "Node 2" },
       type: "default",
     },
+    {
+      id:'3',
+      position:{x:200,y:200},
+      data:{label:'Node 3'}
+    }
   ];
 
   const initialEdges: Edge[] = [
     {
-      id: "e1-2",
+      id: "e1-1",
       source: "1",
       target: "2",
       animated: true,
     },
+    {
+      id:"e1-2",
+      source:"2",
+      target:"3",
+      animated:true
+    }
   ];
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
