@@ -1,16 +1,25 @@
-"use client"
-import React from 'react'
-import { useSession } from 'next-auth/react'
-import { getToken } from 'next-auth/jwt'
+"use client";
+import React, { useState } from "react";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import SideBar from "../components/SideBar";
 
 const Dashboard = () => {
 
+  return (<>
+    <PanelGroup
+    autoSaveId="example"
+    direction="horizontal"
+    >
+      <Panel defaultSizePercentage={19} minSizePercentage={19} maxSizePercentage={30} >
+        <SideBar />
+      </Panel>
+      <PanelResizeHandle  className=" hover:bg-gray-500 w-1"  />
+      <Panel defaultSizePercentage={81} >
+       
+      </Panel>
+    </PanelGroup>
+    </>
+  );
+};
 
- const session = useSession()
- console.log(session)
-  return (
-    <div>Hello {session.data?.user?.name}</div>
-  )
-}
-
-export default Dashboard
+export default Dashboard;
