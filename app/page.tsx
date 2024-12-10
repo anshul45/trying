@@ -1,5 +1,4 @@
 import { Box, Button, Flex, Text } from "@mantine/core";
-import Selector from "./components/ui/Selector";
 import Header from "./components/Header";
 import Contents from "./components/Contents";
 

@@ -27,9 +27,9 @@ const Selector:React.FC<SelectorProps> = ({title}) => {
     {open ?<FaAngleUp/>: <FaAngleDown/> }
    </Flex>
     {open &&    
-        <Flex direction="column" p={10}  bg="yellow"  wrap="wrap" w={data.length < 5 ? 180 : 340}   h={data.length < 4 ? 137 : 176} className={`absolute rounded-xl ${data.length > 5 ? "-left-[130px]":"-left-[40px]"}`}>
+        <Flex direction="column" p={10}  bg="#1C2536"  wrap="wrap" w={data.length < 5 ? 180 : 340}   h={data.length < 4 ? 137 : 176} className={`absolute rounded-xl ${data.length > 5 ? "-left-[130px]":"-left-[40px]"}`}>
             {data.map(data => 
-            <Text className="rounded-md hover:bg-gray-400" px={10} py={7} w={160} key={data}>{data}</Text>
+            <Text className="rounded-md hover:bg-slate-400" c='white' px={10} py={7} w={160} key={data}>{data}</Text>
             )}
         </Flex>
 

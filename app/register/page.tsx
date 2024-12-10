@@ -6,8 +6,10 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import Logo from "../../public/logo.png"
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const Register = () => {
+const router = useRouter()
   return (
     <Box h='100vh' bg='#1C2536'>
       <Center>
@@ -15,11 +17,11 @@ const Register = () => {
         <Image src={Logo} alt='logo' width={55}/>
         <Title size={25} fw={1}>Create Your Account</Title>
         <Text size='sm'>Sign Up to VectorShift to continue to VectorShift.</Text>
-        <Input w="100%" size='lg' px={2} py={2} color='#007bad' placeholder='Username or email address*'/>
-        <Button w="100%" size='lg' color='#6366F1'>Continue</Button>
+        <Input w="100%" size='lg' color='#007bad' placeholder='Email address*'/>
+        <Button w="100%" size='lg' color='#6366F1' onClick={()=> router.push('/register/password')}>Continue</Button>
         <Flex align='center' gap={0}>
           <Text size='sm'>Already have an account? </Text>
-          <Button color='#007bad' variant='transparent'>Log in</Button>
+          <Button color='#007bad' variant='transparent' onClick={()=> router.push("/login")}>Log in</Button>
         </Flex>
         <Divider size='lg' color='red'  my="lg" label="OR" labelPosition="center"/>
       <Button w="100%" size='lg' color='gray' variant='outline' onClick={()=> signIn('google')}><FcGoogle className='mr-3.5 text-2xl'/> <span className='font-light text-lg'>Continue With Google</span></Button>
