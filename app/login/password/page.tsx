@@ -2,13 +2,25 @@
 import React, { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { Box, Button, Center, Divider, Flex, Input, PasswordInput, Text,  Title } from '@mantine/core'
-import Logo from "../../../public/logo.png"
+import Logo from "@/public/logo.png"
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
-const LoginWithEmail = () => {
+const LoginPassword = () => {
     const[password,setPassword]=useState<string>("")
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const email = searchParams.get("email") || ''
+
+    const handleLogin = async() => {
+      const result = await signIn('credentials',{email,password, redirect:false});
+      if (result) {
+        router.push("/dashboard")    
+      } else {
+    
+      }
+    }
     return (
     <Box h='100vh' bg='#1C2536'>
       <Center>
@@ -16,18 +28,19 @@ const LoginWithEmail = () => {
         <Image src={Logo} alt='logo' width={55}/>
         <Title size={25} fw={1}>Enter Your Password</Title>
         <Text size='sm' className='text-center'>Enter your password for VectorShift to continue to VectorShift</Text>
-        <Input w="100%" size='lg' color='#007bad' placeholder='Username or email address*'/>
+        <PasswordInput w="100%" size='lg' readOnly visible={true} value={email} onChange={e => setPassword(e.target.value)}  rightSectionWidth={64} rightSection={<Button className='z-50' color='#007bad' variant='transparent' onClick={()=>router.push("/login")}>Edit</Button>}/>
         <PasswordInput w="100%" size='lg' placeholder='Password*' value={password} onChange={e => setPassword(e.target.value)} />
         <Button color='#007bad' variant='transparent'>Forgot password?</Button>
-        <Button w="100%" size='lg' color='#6366F1'>Continue</Button>
+        <Button w="100%" size='lg' color='#6366F1' onClick={handleLogin}>Continue</Button>
         <Flex align='center' gap={0}>
           <Text size='sm'>Don't have an account?</Text>
           <Button color='#007bad' variant='transparent' onClick={()=> router.push("/register")}>Sign up</Button>
         </Flex>
-      </Flex>
+        </Flex>
       </Center>
+       
     </Box>
   )
 }
 
-export default LoginWithEmail
+export default LoginPassword

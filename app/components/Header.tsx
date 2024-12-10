@@ -4,7 +4,7 @@ import React from 'react'
 import Selector from './ui/Selector'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import Logo from ".././../public/logo.png"
+import Logo from "@/public/logo.png"
 
 const Header = () => {
 
