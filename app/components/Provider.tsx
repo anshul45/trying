@@ -28,7 +28,7 @@ const Provider = ({children}:ProvidersProps) => {
         <Panel defaultSizePercentage={19} minSizePercentage={19} maxSizePercentage={30} >
         <SideBar />
       </Panel>
-      <PanelResizeHandle  className=" hover:bg-gray-500 w-1"  />
+      <PanelResizeHandle  className=" hover:bg-gray-500 w-1 bg-[#f1f3f4]"  />
       </>
       )} 
       <Panel defaultSizePercentage={visible ? 81 : 100} minSizePercentage={visible ? 70 : 100} maxSizePercentage={visible ? 81 : 100}>

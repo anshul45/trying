@@ -1,30 +1,20 @@
-"use client"
 import { Button, Flex, Text } from '@mantine/core'
-import React from 'react'
-import Selector from './ui/Selector'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import Logo from "@/public/logo.png"
+import { LuPanelRightOpen } from 'react-icons/lu'
 
-const Header = () => {
-
-  const router = useRouter()
+const Header = ({title,buttons}:any) => {
   return (
-    <Flex  justify="space-between" align="center">
-      <Flex pb={5} align='center' gap={7}>
-      <Image src={Logo} alt='logo'width={25} />
-        <Text  className='cursor-pointer hover:text-blue-400 active:text-white'>VectorShift</Text>
-      </Flex>
-        <Selector title="Platform"/>
-        <Selector title="Solutions"/>
-        <Text pb={5} className='cursor-pointer hover:text-blue-400 active:text-white'>Enterprise</Text>
-        <Text pb={5} className='cursor-pointer hover:text-blue-400 active:text-white'>Pricing</Text>
-        <Selector title="Resources"/>
-        <Text pb={5} className='cursor-pointer hover:text-blue-400 active:text-white'>Security</Text>
-        <Text pb={5} className='cursor-pointer hover:text-blue-400 active:text-white'>Talk to Us</Text>
-        <Text pb={5} className='cursor-pointer hover:text-blue-400 active:text-white' onClick={()=> router.push('/login')}>Log in</Text>
-        <Button mb={5} radius={200} w={130} h={40} onClick={()=> router.push('/register')}>Get started</Button>
+    <Flex py={9} px={15} bottom={10} align='center' justify='space-between' className="border-b-[1px]">
+    <Flex align='center' gap={9}>
+  <LuPanelRightOpen size={16}/>
+  <Text className="font-medium text-[15px]">{title}</Text>
     </Flex>
+    <Flex align='center' gap={10}>
+      {buttons?.map(data =>(  
+        <Button variant="outline" className="text-xs px-3" size="compact-sm" key={data} onClick={data.action}>{data.title}</Button>
+      ) 
+      )}
+    </Flex>
+  </Flex>
   )
 }
 
