@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import { useRouter } from "next/navigation";
 import PipelineMenu from "../components/pipeline/PipelineMenu";
 
-const Pipeline = () => {
+const Pipeline = ({toggleSidebar}:any) => {
   const [showModal, setShowModal] = useState(false)
   const router = useRouter()
 
@@ -14,7 +14,7 @@ const Pipeline = () => {
 
   return (<Box bg='#f1f3f4' h='100vh' p={10}>
    <Box bg='white'h='100%' className="rounded-md border-[1px]">
-    <Header title='Pipelines' buttons={pipelinesButton}/>
+    <Header title='Pipelines' buttons={pipelinesButton} toggleSidebar={toggleSidebar}/>
     <EmptyPipeline/>
    </Box>
    <PipelineMenu showModal={showModal} setShowModal={setShowModal}/>

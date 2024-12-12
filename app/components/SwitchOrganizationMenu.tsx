@@ -1,8 +1,8 @@
+
 import { Box, Menu, Text } from '@mantine/core'
 import React, { useState } from 'react'
 
 const SwitchOrganizationMenu = () => {
-    const[open,setOpen] = useState(false)
   return (
     <Box className='z-50' onClick={e =>{ e.stopPropagation()}}>
     <Menu shadow="md" width={200} offset={40} position='right-start' trigger='click-hover'>
@@ -15,7 +15,7 @@ const SwitchOrganizationMenu = () => {
               <Menu.Divider/>
               <Menu.Label>Organizations</Menu.Label>
               <Menu.Divider/>
-              <Menu.Item onClick={()=>  setOpen(true)}>Create Organization</Menu.Item>
+              <Menu.Item>Create Organization</Menu.Item>
             </Menu.Dropdown>
           </Menu>
     </Box>
