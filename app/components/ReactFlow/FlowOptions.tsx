@@ -4,15 +4,17 @@ import { useState } from 'react';
 import { IoMdSearch } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import FlowOptionsCard from './FlowOptionsCard';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/redux/store';
 
 const FlowOptions = () => {
   const[searchOpen,setSearchOpen] = useState<boolean>(false);
   const[selectedOption, setSelectedOption] = useState<string>("General")
   const options = ["General","LLMs","Knowledge Base","Integrations","Data Loaders","Multi-Modal","Logic","Chat"]
-  console.log(selectedOption)
+  const toggleSidebar = useSelector((state:RootState) => state.sidebar.showSidebar); 
   
   return (
-    <Box h={130}   bg='white' px={40}  pb={22} pt={5} className='rounded-b-md border-b-[1px] shadow-md'>
+    <Box h={130} w={toggleSidebar?'79.18%':'98.4%'}  bg='white' px={40}  pb={22} pt={5}  className='rounded-b-md border-b-[1px] shadow-md absolute z-50'>
       <Flex gap={10} align='center'>
         {searchOpen ? 
          <IoMdClose  className='cursor-pointer' onClick={()=>setSearchOpen(!searchOpen)}/> 

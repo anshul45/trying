@@ -67,8 +67,8 @@ export default function Flow() {
   );
 
   return (
-    <div style={{ width: "100%", height: "90.9vh" }}>
-     {openOptions && <div className="absolute z-50 w-[100%]"><FlowOptions/></div> }
+    <div style={{  height: "90.9vh" }}>
+     {openOptions && <FlowOptions/> }
      { openOptions ? <RiCloseLargeFill className="absolute ml-8 mt-36 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={20} onClick={() => setOpenOptions(!openOptions)}/> : <MdAddCircle className="absolute ml-8 mt-1 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={35} onClick={() => setOpenOptions(!openOptions)}/>
      }
       <ReactFlow

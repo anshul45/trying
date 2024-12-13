@@ -5,7 +5,7 @@ import { Box } from '@mantine/core'
 
 const page = () => {
   return (
-    <Box m={10} className='border-[1px] rounded-md'>
+    <Box m={10}   className='border-[1px] rounded-md'>
     <Header/>
     <Flow/>
     </Box>
