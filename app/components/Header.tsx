@@ -1,3 +1,4 @@
+"use client"
 import { toggleSidebar } from '@/lib/redux/slice/showSidebarSlice';
 import { Button, Flex, Text } from '@mantine/core'
 import { LuPanelRightOpen } from 'react-icons/lu'
@@ -8,7 +9,7 @@ const Header = ({title,buttons}:any) => {
   return (
     <Flex py={9} px={15} bottom={10} align='center' justify='space-between' className="border-b-[1px]">
     <Flex align='center' gap={9}>
-  <LuPanelRightOpen size={16} onClick={() => dispatch(toggleSidebar())}/>
+  <LuPanelRightOpen size={16} className='cursor-pointer' onClick={() => dispatch(toggleSidebar())}/>
   <Text className="font-medium text-[15px]">{title}</Text>
     </Flex>
     <Flex align='center' gap={10}>
