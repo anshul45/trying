@@ -1,5 +1,7 @@
 "use client"
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import { MdAddCircle } from "react-icons/md";
+import { RiCloseLargeFill } from "react-icons/ri";
 import {
   Background,
   Controls,
@@ -14,8 +16,9 @@ import {
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
+import FlowOptions from "./FlowOptions";
 
-export default function App() {
+export default function Flow() {
   // Initial state for nodes and edges
   const initialNodes: Node[] = [
     {
@@ -55,6 +58,8 @@ export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
+  const [openOptions, setOpenOptions] = useState<boolean>(false)
+
   // Handle new connections between nodes
   const onConnect: OnConnect = useCallback(
     (connection) => setEdges((eds) => addEdge(connection, eds)),
@@ -62,7 +67,10 @@ export default function App() {
   );
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div style={{ width: "100%", height: "90.9vh" }}>
+     {openOptions && <div className="absolute z-50 w-[100%]"><FlowOptions/></div> }
+     { openOptions ? <RiCloseLargeFill className="absolute ml-8 mt-36 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={20} onClick={() => setOpenOptions(!openOptions)}/> : <MdAddCircle className="absolute ml-8 mt-1 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={35} onClick={() => setOpenOptions(!openOptions)}/>
+     }
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -72,8 +80,8 @@ export default function App() {
         fitView
       >
         <Background />
+        <Controls position="bottom-center" style={{marginLeft:"300px", marginBottom:"30px"}} />
         <MiniMap />
-        <Controls />
       </ReactFlow>
     </div>
   );
