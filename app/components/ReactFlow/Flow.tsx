@@ -1,5 +1,5 @@
 "use client"
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import { RiCloseLargeFill } from "react-icons/ri";
 import {
@@ -17,29 +17,20 @@ import {
 
 import "@xyflow/react/dist/style.css";
 import FlowOptions from "./FlowOptions";
+import InputNode from "./nodes/InputNode";
+import OutputNode from "./nodes/OutputNode";
+import TextNode from "./nodes/TextNode";
 
 export default function Flow() {
-  // Initial state for nodes and edges
-  const initialNodes: Node[] = [
-    {
-      id: "1",
-      position: { x: 0, y: 0 },
-      data: { label: "Node 1" },
-      type: "default",
-    },
-    {
-      id: "2",
-      position: { x: 100, y: 100 },
-      data: { label: "Node 2" },
-      type: "default",
-    },
-    {
-      id:'3',
-      position:{x:200,y:200},
-      data:{label:'Node 3'}
-    }
-  ];
 
+
+  const nodeTypes = useMemo(() =>({
+    inputNode:InputNode,
+    outputNode:OutputNode,
+    textNode:TextNode
+  }),[])
+
+ 
   const initialEdges: Edge[] = [
     {
       id: "e1-1",
@@ -55,7 +46,30 @@ export default function Flow() {
     }
   ];
 
+  const initialNodes: Node[] = [
+    {
+      id: "1",
+      position: { x: 0, y: 0 },
+      data: { label: "Node 1" },
+      type:"textNode"
+    },
+    {
+      id: "2",
+      position: { x: 100, y: 100 },
+      data: { label: "Node 2" },
+      type: "inputNode",
+    },
+    {
+      id: "3",
+      position: { x: 200, y: 200 },
+      data: { label: "Node 3" },
+      type:"outputNode"
+    },
+  ];
+  
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  
+
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const [openOptions, setOpenOptions] = useState<boolean>(false)
@@ -65,6 +79,7 @@ export default function Flow() {
     (connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges]
   );
+   
 
   return (
     <div style={{  height: "90.9vh" }}>
@@ -73,6 +88,7 @@ export default function Flow() {
      }
       <ReactFlow
         nodes={nodes}
+        nodeTypes={nodeTypes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
