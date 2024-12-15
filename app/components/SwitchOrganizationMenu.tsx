@@ -1,6 +1,6 @@
 
 import { Box, Menu, Text } from '@mantine/core'
-import React, { useState } from 'react'
+import React from 'react'
 
 const SwitchOrganizationMenu = () => {
   return (

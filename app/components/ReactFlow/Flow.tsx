@@ -13,6 +13,7 @@ import {
   type OnConnect,
   type Edge,
   type Node,
+  ReactFlowProvider,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
@@ -20,8 +21,9 @@ import FlowOptions from "./FlowOptions";
 import InputNode from "./nodes/InputNode";
 import OutputNode from "./nodes/OutputNode";
 import TextNode from "./nodes/TextNode";
+import { DnDProvider, useDnD } from './DnDContext';
 
-export default function Flow() {
+ function Flow() {
 
 
   const nodeTypes = useMemo(() =>({
@@ -31,46 +33,14 @@ export default function Flow() {
   }),[])
 
  
-  const initialEdges: Edge[] = [
-    {
-      id: "e1-1",
-      source: "1",
-      target: "2",
-      animated: true,
-    },
-    {
-      id:"e1-2",
-      source:"2",
-      target:"3",
-      animated:true
-    }
-  ];
+ 
 
-  const initialNodes: Node[] = [
-    {
-      id: "1",
-      position: { x: 0, y: 0 },
-      data: { label: "Node 1" },
-      type:"textNode"
-    },
-    {
-      id: "2",
-      position: { x: 100, y: 100 },
-      data: { label: "Node 2" },
-      type: "inputNode",
-    },
-    {
-      id: "3",
-      position: { x: 200, y: 200 },
-      data: { label: "Node 3" },
-      type:"outputNode"
-    },
-  ];
   
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
   
 
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   const [openOptions, setOpenOptions] = useState<boolean>(false)
 
@@ -81,9 +51,10 @@ export default function Flow() {
   );
    
 
+
   return (
     <div style={{  height: "90.9vh" }}>
-     {openOptions && <FlowOptions/> }
+     {openOptions && <FlowOptions setNodes={setNodes}/> }
      { openOptions ? <RiCloseLargeFill className="absolute ml-8 mt-36 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={20} onClick={() => setOpenOptions(!openOptions)}/> : <MdAddCircle className="absolute ml-8 mt-1 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={35} onClick={() => setOpenOptions(!openOptions)}/>
      }
       <ReactFlow
@@ -102,3 +73,11 @@ export default function Flow() {
     </div>
   );
 }
+
+export default () => (
+  <ReactFlowProvider>
+    <DnDProvider>
+      <Flow />
+    </DnDProvider>
+  </ReactFlowProvider>
+);

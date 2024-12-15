@@ -6,12 +6,17 @@ import { IoMdClose } from "react-icons/io";
 import FlowOptionsCard from './FlowOptionsCard';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/redux/store';
+import { MdInput } from 'react-icons/md'
+import { MdOutput } from 'react-icons/md'
+import { MdOutlineTextSnippet } from "react-icons/md";
 
-const FlowOptions = () => {
+const FlowOptions = ({setNodes}:any) => {
   const[searchOpen,setSearchOpen] = useState<boolean>(false);
   const[selectedOption, setSelectedOption] = useState<string>("General")
   const options = ["General","LLMs","Knowledge Base","Integrations","Data Loaders","Multi-Modal","Logic","Chat"]
   const toggleSidebar = useSelector((state:RootState) => state.sidebar.showSidebar); 
+
+  const optionCards=[{icon:<MdInput/>, title:"Input"},{icon:<MdOutput/>,title:"Output"},{icon:<MdOutlineTextSnippet/>,title:"Text"}]
   
   return (
     <Box h={130} w={toggleSidebar?'79.18%':'98.4%'}  bg='white' px={40}  pb={22} pt={5}  className='rounded-b-md border-b-[1px] shadow-md absolute z-50'>
@@ -27,8 +32,10 @@ const FlowOptions = () => {
       ) 
     }
       </Flex>
-      <Flex mt={8}>
-        <FlowOptionsCard/>
+      <Flex mt={8} gap={10}>
+        {optionCards.map(data => 
+        <FlowOptionsCard key={data.title} title={data.title} icon={data.icon} setNodes={setNodes}/>
+        )}
       </Flex>
     </Box>
   )

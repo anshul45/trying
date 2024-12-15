@@ -1,14 +1,30 @@
-import { Box, Flex, Text } from "@mantine/core"
-import { MdInput } from "react-icons/md"
+import { Box, Center, Text, Title } from "@mantine/core"
 
+const FlowOptionsCard = ({title,icon,setNodes}:any) => {
 
-const FlowOptionsCard = () => {
+  const optionMap ={
+    Input:"inputNode",
+    Output:"outputNode",
+    Text:"textNode"
+  }
+
+      const handleClick =() => {
+        const id = crypto.randomUUID();
+        const position = { x: 100, y: 100 }
+          setNodes(prev => [...prev,{id,position,type:optionMap[title]}] )
+        
+      }
+
   return (
-    <Box py={7} c='gray' px={23} className="border-[1px] rounded-md">
-      
-      <MdInput size={25} />
-   
-      <Text mt={5} size='xs'>Input</Text>
+    <Box py={7} c='gray' px={23} className="border-[1px] rounded-md" onClick={handleClick}>
+      <Center>
+      <Title size={25}>
+        {icon}
+      </Title>
+      </Center>
+   <Center>
+      <Text mt={5} size='xs'>{title}</Text>
+    </Center>
     </Box>
   )
 }
