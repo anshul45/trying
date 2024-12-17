@@ -15,10 +15,8 @@ const RegisterPassword = () => {
     const handleRegister = async() => {
       const result = await signIn('credentials',{email,name,password, redirect:false});
       if (result) {
-        router.push("/dashboard")    
-      } else {
-    
-      }
+        router.push("/login")    
+      } 
     }
   return (
     <Box h='100vh' bg='#1C2536'>

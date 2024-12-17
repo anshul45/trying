@@ -5,9 +5,50 @@ from lib.prisma_client import prisma
 from lib.auth.jwt_token import generate_token,verify_token
 
 
-async def log_in():
-    return{"message","user authenticated"}
+async def log_in(request:Request):
+    try:
+        body = await request.json()
+        username = body.get("name")
+        email = body.get("email")
 
+        if not username or not email:
+            return JSONResponse(
+            status_code=400,
+            content={"error": "Username, email are required"}
+            )
+        user_exist = await prisma.user.find_unique(where={"email":email})
+        if(user_exist):
+            token = generate_token(user_exist.id)
+            response_data = {key: value for key, value in user_exist.dict().items() if key != "password"}
+
+            return JSONResponse(
+            status_code=200,
+            content={"user": response_data,"token":token}
+            )
+        else :
+          response = await prisma.user.create(
+            data={ 
+            "username": username,
+            "email": email,
+            "provider":"oath"
+            })
+        
+          token = generate_token(response.id)
+          response_data = {key: value for key, value in response.dict().items() if key != "password"}
+
+          return JSONResponse(
+            status_code=200,
+            content={"user": response_data,"token":token}
+                )
+        
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"error": "An error occurred during signup", "details": str(e)}
+        )
+    
+
+    
 async def signup_with_credential(request:Request):
     try:
         body = await request.json()
@@ -22,7 +63,6 @@ async def signup_with_credential(request:Request):
             )
     
         user_exist = await prisma.user.find_unique(where={"email":email})
-        print(user_exist)
 
         if(user_exist):
             return JSONResponse(
@@ -62,6 +102,7 @@ async def login_with_credential(request: Request):
         username = body.get("username")
         password = body.get("password")
         email = body.get("email")
+
     
         if not (username or email):
             return JSONResponse(

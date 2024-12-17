@@ -5,10 +5,14 @@ import EmptyPipeline from "../components/pipeline/EmptyPipeline";
 import Header from "../components/Header";
 import { useRouter } from "next/navigation";
 import PipelineMenu from "../components/pipeline/PipelineMenu";
+import { useSession } from "next-auth/react";
 
 const Pipeline = () => {
   const [showModal, setShowModal] = useState(false)
   const router = useRouter()
+  const session = useSession()
+
+  console.log(session)
 
   const pipelinesButton = [{title:"Run History",action: () => router.push("/pipeline/history")},{title:"Display",action: () => setShowModal(true)},{title:"New",action: () => router.push("/pipeline/new")}]
 

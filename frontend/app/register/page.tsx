@@ -32,8 +32,8 @@ if(email)
           <Button color='#007bad' variant='transparent' onClick={()=> router.push("/login")}>Log in</Button>
         </Flex>
         <Divider size='lg' color='red'  my="lg" label="OR" labelPosition="center"/>
-      <Button w="100%" size='lg' color='gray' variant='outline' onClick={()=> signIn('google', { callbackUrl: '/dashboard' })}><FcGoogle className='mr-3.5 text-2xl'/> <span className='font-light text-lg'>Continue With Google</span></Button>
-      <Button w="100%" size='lg' color='gray' variant='outline' onClick={()=> signIn('github', { callbackUrl: '/dashboard' })}><FaGithub className='mr-3.5 text-2xl text-black'/> <span className='font-light text-lg'>Continue With GitHub</span></Button>
+      <Button w="100%" size='lg' color='gray' variant='outline' onClick={()=> signIn('google', { callbackUrl: '/pipeline' })}><FcGoogle className='mr-3.5 text-2xl'/> <span className='font-light text-lg'>Continue With Google</span></Button>
+      <Button w="100%" size='lg' color='gray' variant='outline' onClick={()=> signIn('github', { callbackUrl: '/pipeline' })}><FaGithub className='mr-3.5 text-2xl text-black'/> <span className='font-light text-lg'>Continue With GitHub</span></Button>
 
       </Flex>
       </Center>

@@ -16,7 +16,7 @@ const LoginPassword = () => {
     const handleLogin = async() => {
       const result = await signIn('credentials',{email,password, redirect:false});
       if (result) {
-        router.push("/dashboard")    
+        router.push("/pipeline")    
       } else {
     
       }

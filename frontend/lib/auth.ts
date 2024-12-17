@@ -3,9 +3,21 @@ import Credentials from "next-auth/providers/credentials"
 import Github from "next-auth/providers/github"
 import Google from "next-auth/providers/google"
 
-const checkUser = async (credentials: any) => {
-  const { email, name, password } = credentials
-    return { id: "user-id111", email, name,password }
+const loginUser = async (credentials: any) => {
+  const { email, password,name } = credentials
+  if(email && password && name){
+    const response = await fetch("http://127.0.0.1:8000/signupwithcredential",{method:"POST",body:JSON.stringify({email,password,"username":name,"provider":"credential"})})
+    return await response.json()
+  }
+  else{
+    const response =  await fetch("http://127.0.0.1:8000/loginwithcredential",{method:"POST",body:JSON.stringify({email,password})})
+    return await response.json()
+  }
+}
+
+const saveUser = async(credentials:any) => {
+  const response =  await fetch("http://127.0.0.1:8000/login",{method:"POST",body:JSON.stringify(credentials)})
+   return  await response.json()
 }
 
 export const authoptions:AuthOptions = {
@@ -20,23 +32,51 @@ Github({
 }),
 Credentials({
   credentials:{
+    name: { label: "Name", type: "text ", placeholder: "jsmith123" },
     email: { label: "Email", type: "text ", placeholder: "jsmith@email.com" },
-    name: { label: "Username", type: "text ", placeholder: "jsmith" },
     password: { label: "Password", type: "password" }
   },
   async authorize(credentials) {
-    const user = await checkUser(credentials)
-    if (user) {
-      return user
-    } else {
-      return null
+    const user = await loginUser(credentials)
+    return {
+      token:user.token,
+      ...user.user
     }
   },
 })
 ],
 callbacks:{
-    async session({ session, token }) {
-     
+    async jwt({token,user})
+    {
+      if(user)
+      if(user.id && user.name && user.email){
+        const userData  = await saveUser(user);
+        token = {
+          id: userData.user.id,
+          email: userData.user.email,
+          username: userData.user.username,
+          token: userData.token,
+        }
+      }
+      else{
+        token = {
+          id: user.id,
+          email: user.email,
+          username: user.username,
+          token: user.token,
+        }
+      }
+        
+      return token
+    },
+
+    async session({ session,token }) {
+      if(token)
+      {
+        session.user = {
+         ...token
+        };
+      }
       return session
     },
     
