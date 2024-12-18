@@ -14,12 +14,11 @@ const FlowOptions = ({setNodes}:any) => {
   const[searchOpen,setSearchOpen] = useState<boolean>(false);
   const[selectedOption, setSelectedOption] = useState<string>("General")
   const options = ["General","LLMs","Knowledge Base","Integrations","Data Loaders","Multi-Modal","Logic","Chat"]
-  const toggleSidebar = useSelector((state:RootState) => state.sidebar.showSidebar); 
 
   const optionCards=[{icon:<MdInput/>, title:"Input"},{icon:<MdOutput/>,title:"Output"},{icon:<MdOutlineTextSnippet/>,title:"Text"}]
   
   return (
-    <Box h={130} w={toggleSidebar?'79.18%':'98.4%'}  bg='white' px={40}  pb={22} pt={5}  className='rounded-b-md border-b-[1px] shadow-md absolute z-50'>
+    <Box h={130} w='100%'  bg='white' px={40}  pb={22} pt={5}  className='rounded-b-md border-b-[1px] shadow-md absolute z-50'>
       <Flex gap={10} align='center'>
         {searchOpen ? 
          <IoMdClose  className='cursor-pointer' onClick={()=>setSearchOpen(!searchOpen)}/> 

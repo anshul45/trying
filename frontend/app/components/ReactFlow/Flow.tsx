@@ -53,7 +53,7 @@ import { DnDProvider, useDnD } from './DnDContext';
 
 
   return (
-    <div style={{  height: "90.9vh" }}>
+    <div style={{ height: "90.9vh", position:"relative" }}>
      {openOptions && <FlowOptions setNodes={setNodes}/> }
      { openOptions ? <RiCloseLargeFill className="absolute ml-8 mt-36 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={20} onClick={() => setOpenOptions(!openOptions)}/> : <MdAddCircle className="absolute ml-8 mt-1 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={35} onClick={() => setOpenOptions(!openOptions)}/>
      }
@@ -67,7 +67,7 @@ import { DnDProvider, useDnD } from './DnDContext';
         fitView
       >
         <Background />
-        <Controls position="bottom-center" style={{marginLeft:"300px", marginBottom:"30px"}} />
+        <Controls position="bottom-left" />
         <MiniMap />
       </ReactFlow>
     </div>
