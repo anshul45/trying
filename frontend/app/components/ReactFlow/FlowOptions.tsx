@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { IoMdSearch } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import FlowOptionsCard from './FlowOptionsCard';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/redux/store';
 import { MdInput } from 'react-icons/md'
 import { MdOutput } from 'react-icons/md'
 import { MdOutlineTextSnippet } from "react-icons/md";
@@ -13,6 +11,7 @@ import { MdOutlineTextSnippet } from "react-icons/md";
 const FlowOptions = ({setNodes}:any) => {
   const[searchOpen,setSearchOpen] = useState<boolean>(false);
   const[selectedOption, setSelectedOption] = useState<string>("General")
+  
   const options = ["General","LLMs","Knowledge Base","Integrations","Data Loaders","Multi-Modal","Logic","Chat"]
 
   const optionCards=[{icon:<MdInput/>, title:"Input"},{icon:<MdOutput/>,title:"Output"},{icon:<MdOutlineTextSnippet/>,title:"Text"}]

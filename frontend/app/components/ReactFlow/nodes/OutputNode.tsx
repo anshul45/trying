@@ -25,7 +25,7 @@ const OutputNode = () => {
     />
     </Box>
 
-  <Handle type='target' position={Position.Left} id='a'/>
+  <Handle type='target' style={{background:"white",border:"1px solid black",  width:'15px', height:'15px'}} position={Position.Left} id='a'/>
   </Box>
   )
 }

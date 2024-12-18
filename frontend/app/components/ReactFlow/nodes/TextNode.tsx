@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Handle, Position } from '@xyflow/react'
-import { Box, Flex, Select, Text, Textarea, TextInput } from '@mantine/core'
+import { Box, Flex, Text, Textarea } from '@mantine/core'
 import { MdOutlineTextSnippet } from "react-icons/md";
 import { MdOutlineCancel } from "react-icons/md";
 const TextNode = () => {
@@ -16,8 +16,8 @@ const TextNode = () => {
       <MdOutlineCancel size={15} className='mb-2 cursor-pointer'/>
     </Flex>
     <Textarea size='compact-sm' label='Field Name' styles={{ input:{padding:"8px"}, label:{color:"grey"}}} value={inputValue} onChange={e =>setInputValue(e.target.value)}/>
-  <Handle type='target' position={Position.Left} id='a'/>
-  <Handle type='source' position={Position.Right} id='a'/>
+  <Handle type='target' style={{background:"white",border:"1px solid black",  width:'15px', height:'15px'}} position={Position.Left} id='a'/>
+  <Handle type='source' style={{background:"white",border:"1px solid black",  width:'15px', height:'15px'}} position={Position.Right} id='a'/>
 
   </Box>
   )

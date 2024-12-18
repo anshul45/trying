@@ -14,6 +14,7 @@ import {
   type Edge,
   type Node,
   ReactFlowProvider,
+  useReactFlow
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
@@ -24,6 +25,7 @@ import TextNode from "./nodes/TextNode";
 import { DnDProvider, useDnD } from './DnDContext';
 
  function Flow() {
+  const instance = useReactFlow()
 
 
   const nodeTypes = useMemo(() =>({
@@ -32,7 +34,9 @@ import { DnDProvider, useDnD } from './DnDContext';
     textNode:TextNode
   }),[])
 
- 
+  const edgeTypes = {
+    
+  }
  
 
   
@@ -49,7 +53,17 @@ import { DnDProvider, useDnD } from './DnDContext';
     (connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges]
   );
-   
+
+  const onEdgesDelete = useCallback((edges:Edge[]) => {
+    console.log("edges",edges)
+  },[])
+
+  const onNodesDelete = useCallback((nodes:Node[])=> {
+    console.log("nodes",nodes)
+  },[])
+
+
+
 
 
   return (
@@ -58,11 +72,15 @@ import { DnDProvider, useDnD } from './DnDContext';
      { openOptions ? <RiCloseLargeFill className="absolute ml-8 mt-36 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={20} onClick={() => setOpenOptions(!openOptions)}/> : <MdAddCircle className="absolute ml-8 mt-1 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={35} onClick={() => setOpenOptions(!openOptions)}/>
      }
       <ReactFlow
+        maxZoom={1.5}
+        minZoom={0.9}
+        edges={edges}
+        onEdgesChange={onEdgesChange}
+        onEdgesDelete={onEdgesDelete}
         nodes={nodes}
         nodeTypes={nodeTypes}
-        edges={edges}
+        onNodesDelete={onNodesDelete}
         onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         fitView
       >
