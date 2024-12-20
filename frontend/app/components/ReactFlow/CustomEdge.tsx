@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BaseEdge, EdgeLabelRenderer, getStraightPath, useReactFlow } from "@xyflow/react";
 import { MdClose } from "react-icons/md";
 
-export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, selected }) {
+export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, selected }:any) {
   const [isHighlighted, setIsHighlighted] = useState(false); // State for the red highlight
   const [edgePath, labelX, labelY] = getStraightPath({
     sourceX,
@@ -12,6 +12,8 @@ export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, sel
   });
 
   const { deleteElements } = useReactFlow();
+
+
 
   if(selected) {
     deleteElements({edges:[{id}]})
@@ -28,6 +30,7 @@ export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, sel
           stroke: selected ? "red" : '#7A7DF3',
           strokeWidth: 2,
         }}
+        
       />
       <EdgeLabelRenderer>
         <div

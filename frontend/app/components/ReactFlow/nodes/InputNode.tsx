@@ -2,25 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Handle, Position, useReactFlow } from "@xyflow/react";
 import { Box, Flex, Select, Text, TextInput } from "@mantine/core";
 import { MdInput, MdOutlineCancel } from "react-icons/md";
+import NodesHead from "./NodesHead";
 
-const InputNode = ({ data, id, type }) => {
-  const { deleteElements, updateNodeData } = useReactFlow();
+const InputNode = ({ data, id }) => {
+  const { updateNodeData } = useReactFlow();
   const [inputValue, setInputValue] = useState<string>("input_1");
-  const [isClicked, setIsClicked] = useState(false); 
 
-  const handleDelete = () => {
-    deleteElements({ nodes: [{ id: id }], edges: [{ id: id }] });
-  };
-
-  const handleIconClick = () => {
-    if (isClicked) {
-      handleDelete(); // Trigger delete on the second click
-    } else {
-      setIsClicked(true); // Mark as clicked on the first click
-      setTimeout(() => setIsClicked(false), 3000); // Reset after 3 seconds
-    }
-  };
-
+ 
   // Update node data when inputValue changes
   useEffect(() => {
     const data = {
@@ -31,18 +19,7 @@ const InputNode = ({ data, id, type }) => {
 
   return (
     <Box className="border-2 rounded-md drop-shadow-sm" bg="white" px={10} py={5} w={260}>
-      <Flex justify="space-between" align="center">
-        <Flex align="center" gap={4}>
-          <MdInput size={15} />
-          <Text size="sm">Input</Text>
-        </Flex>
-        <MdOutlineCancel
-          size={15}
-          className="mb-2 cursor-pointer"
-          color={isClicked ? "red" : "black"} 
-          onClick={handleIconClick}
-        />
-      </Flex>
+      <NodesHead id={id} icon={<MdInput/>} title='Input'/>
       <Box px={10}>
         <TextInput
           size="compact-sm"
