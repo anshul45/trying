@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-from routes.authRoutes import authRouter 
+from routes.authRoutes import authRouter
+from routes.edgesRoutes import edgeRouter
+from routes.nodesRoutes import nodeRouter
 from dotenv import load_dotenv
 from lib.prisma_client import connect_prisma,disconnect_prisma
 
@@ -18,6 +20,9 @@ async def shutdown():
     await disconnect_prisma()
 
 app.include_router(authRouter)
+app.include_router(edgeRouter)
+app.include_router(nodeRouter)
+
 
 @app.get("/health")
 def health():

@@ -5,7 +5,11 @@ datasource db {
 
 generator client {
   provider = "prisma-client-py"
+   recursive_type_depth = 5
 }
+
+
+
 
 model User {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
@@ -13,4 +17,22 @@ model User {
   email     String @unique
   password  String?
   provider  String
+}
+
+model Node {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  nodeId      String   @unique 
+  type        String   
+  position    Json 
+  data        Json     
+}
+
+model Edge {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  edgeId        String   @unique 
+  source        String   
+  sourceHandle  String? 
+  target        String   
+  targetHandle  String? 
+  type          String
 }
