@@ -13,8 +13,7 @@ import {
   type OnConnect,
   type Edge,
   type Node,
-  ReactFlowProvider,
-  useReactFlow
+  ReactFlowProvider
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
@@ -23,34 +22,33 @@ import InputNode from "./nodes/InputNode";
 import OutputNode from "./nodes/OutputNode";
 import TextNode from "./nodes/TextNode";
 import { DnDProvider, useDnD } from './DnDContext';
+import CustomEdge from "./CustomEdge";
 
  function Flow() {
-  const instance = useReactFlow()
-
-
   const nodeTypes = useMemo(() =>({
     inputNode:InputNode,
     outputNode:OutputNode,
     textNode:TextNode
   }),[])
 
-  const edgeTypes = {
-    
-  }
+  const edgeTypes = useMemo(() => ({
+    edge1: CustomEdge,
+  }), []);
  
 
   
   
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  
 
+  
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   const [openOptions, setOpenOptions] = useState<boolean>(false)
 
   // Handle new connections between nodes
   const onConnect: OnConnect = useCallback(
-    (connection) => setEdges((eds) => addEdge(connection, eds)),
+    (connection) =>{
+       setEdges((eds) => addEdge({...connection, "type":'edge1'}, eds))},
     [setEdges]
   );
 
@@ -62,7 +60,7 @@ import { DnDProvider, useDnD } from './DnDContext';
     console.log("nodes",nodes)
   },[])
 
-
+ 
 
 
 
@@ -75,6 +73,7 @@ import { DnDProvider, useDnD } from './DnDContext';
         maxZoom={1.5}
         minZoom={0.9}
         edges={edges}
+        edgeTypes={edgeTypes}
         onEdgesChange={onEdgesChange}
         onEdgesDelete={onEdgesDelete}
         nodes={nodes}
