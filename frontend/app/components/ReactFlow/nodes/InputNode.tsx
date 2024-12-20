@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Handle, Position, useReactFlow } from "@xyflow/react";
-import { Box, Flex, Select, Text, TextInput } from "@mantine/core";
-import { MdInput, MdOutlineCancel } from "react-icons/md";
+import { Box, Select, Text, TextInput } from "@mantine/core";
+import { MdInput,  } from "react-icons/md";
 import NodesHead from "./NodesHead";
 
 const InputNode = ({ data, id }) => {
@@ -41,6 +41,7 @@ const InputNode = ({ data, id }) => {
             label: { color: "grey" },
           }}
         />
+        <Text className="absolute z-10 text-xs left-[17rem] top-[50%]">{inputValue}</Text>
       </Box>
       <Handle
         type="source"

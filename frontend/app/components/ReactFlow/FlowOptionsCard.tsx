@@ -5,7 +5,8 @@ const FlowOptionsCard = ({title,icon,setNodes}:any) => {
   const optionMap ={
     Input:"inputNode",
     Output:"outputNode",
-    Text:"textNode"
+    Text:"textNode",
+    OpenAI:"opeanAINode"
   }
 
       const handleClick =() => {

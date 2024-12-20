@@ -3,7 +3,6 @@ import { BaseEdge, EdgeLabelRenderer, getStraightPath, useReactFlow } from "@xyf
 import { MdClose } from "react-icons/md";
 
 export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, selected }:any) {
-  const [isHighlighted, setIsHighlighted] = useState(false); // State for the red highlight
   const [edgePath, labelX, labelY] = getStraightPath({
     sourceX,
     sourceY,

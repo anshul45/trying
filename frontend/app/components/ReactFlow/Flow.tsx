@@ -23,12 +23,14 @@ import OutputNode from "./nodes/OutputNode";
 import TextNode from "./nodes/TextNode";
 import { DnDProvider, useDnD } from './DnDContext';
 import CustomEdge from "./CustomEdge";
+import OpenAINode from "./nodes/llmNodes/OpenaiNode";
 
  function Flow() {
   const nodeTypes = useMemo(() =>({
     inputNode:InputNode,
     outputNode:OutputNode,
-    textNode:TextNode
+    textNode:TextNode,
+    opeanAINode:OpenAINode
   }),[])
 
   const edgeTypes = useMemo(() => ({
