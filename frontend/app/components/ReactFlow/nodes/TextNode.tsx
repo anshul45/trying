@@ -11,10 +11,9 @@ const TextNode = ({id}) => {
     <NodesHead id={id} icon={<MdOutlineTextSnippet/>} title='Text'/>
     <Textarea size='compact-sm' label='Field Name' styles={{ input:{padding:"8px"}, label:{color:"grey"}}} value={inputValue} onChange={e =>setInputValue(e.target.value)}/>
       <Text className="absolute z-10 text-xs right-[17rem] top-[50%]">{inputValue}</Text>
-  <Handle type='target' style={{background:"white",border:"1px solid black",  width:'15px', height:'15px'}} position={Position.Left} id='a'/>
-  <Handle type='source' style={{background:"white",border:"1px solid black",  width:'15px', height:'15px'}} position={Position.Right} id='a'/>
+  <Handle type='target' style={{background:"white",border:"1px solid black",  width:'15px', height:'15px'}} position={Position.Left} id='text-target-handle'/>
+  <Handle type='source' style={{background:"white",border:"1px solid black",  width:'15px', height:'15px'}} position={Position.Right} id='text-source-handle'/>
       <Text className="absolute z-10 text-xs left-[17rem] top-[50%]" onChange={e => setInputValue(e.target.value)}>{'output'}</Text>
-
   </Box>
   )
 }

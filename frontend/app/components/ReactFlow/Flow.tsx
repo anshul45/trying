@@ -13,7 +13,8 @@ import {
   type OnConnect,
   type Edge,
   type Node,
-  ReactFlowProvider
+  ReactFlowProvider,
+  useReactFlow
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
@@ -24,6 +25,7 @@ import TextNode from "./nodes/TextNode";
 import { DnDProvider, useDnD } from './DnDContext';
 import CustomEdge from "./CustomEdge";
 import OpenAINode from "./nodes/llmNodes/OpenaiNode";
+
 
  function Flow() {
   const nodeTypes = useMemo(() =>({
@@ -41,11 +43,13 @@ import OpenAINode from "./nodes/llmNodes/OpenaiNode";
   
   
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-
+  console.log(nodes)
   
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
+  console.log(edges)
   const [openOptions, setOpenOptions] = useState<boolean>(false)
+  const { screenToFlowPosition } = useReactFlow();
+
 
   // Handle new connections between nodes
   const onConnect: OnConnect = useCallback(
@@ -63,7 +67,33 @@ import OpenAINode from "./nodes/llmNodes/OpenaiNode";
   },[])
 
  
+  
 
+  const onDrop = useCallback(
+    (event:React.DragEvent) => {
+    event.preventDefault();
+  const data = event.dataTransfer.getData("application/json");
+
+  const { type } = JSON.parse(data)
+  
+  const id = crypto.randomUUID();
+
+  const position = screenToFlowPosition({
+    x: event.clientX,
+    y: event.clientY,
+  });
+     
+      
+  setNodes((prev: any) => [...prev, { id, position, type }]);
+    },
+    [screenToFlowPosition,],
+  );
+
+
+  const onDragOver = useCallback((event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  }, []);
 
 
   return (
@@ -83,6 +113,8 @@ import OpenAINode from "./nodes/llmNodes/OpenaiNode";
         onNodesDelete={onNodesDelete}
         onNodesChange={onNodesChange}
         onConnect={onConnect}
+        onDrop={onDrop}
+        onDragOver={onDragOver}
         fitView
       >
         <Background />

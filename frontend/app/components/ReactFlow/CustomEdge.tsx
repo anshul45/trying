@@ -1,13 +1,17 @@
-import { useState } from "react";
-import { BaseEdge, EdgeLabelRenderer, getStraightPath, useReactFlow } from "@xyflow/react";
+import { BaseEdge, EdgeLabelRenderer, EdgeProps, getSmoothStepPath, getStraightPath, useReactFlow } from "@xyflow/react";
 import { MdClose } from "react-icons/md";
 
-export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, selected }:any) {
-  const [edgePath, labelX, labelY] = getStraightPath({
+export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, selected,
+  sourcePosition,
+  targetPosition,
+}:EdgeProps) {
+  const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,
     sourceY,
     targetX,
     targetY,
+    sourcePosition,
+    targetPosition,
   });
 
   const { deleteElements } = useReactFlow();

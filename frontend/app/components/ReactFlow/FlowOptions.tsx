@@ -36,7 +36,22 @@ const FlowOptions = ({setNodes}:any) => {
       {searchOpen ?
        <Input w={350} size='compact-sm'/>  :
       options?.map(data =>
-      <Text px={10} pb={4} style={{borderColor:`${ selectedOption === data ? "#6366F1" : "white"}`,cursor:"pointer", borderBottom:"2px solid"}} c={`${selectedOption === data ? '#9294F5':""}`} size='sm' key={data} onClick={() => setSelectedOption(data)}>{data}</Text>
+        <Text
+        px={10}
+        pb={4}
+        style={{
+          borderBottomWidth: "2px",
+          borderBottomStyle: "solid",
+          borderBottomColor: `${selectedOption === data ? "#6366F1" : "white"}`,
+          cursor: "pointer",
+        }}
+        c={`${selectedOption === data ? '#9294F5' : ""}`}
+        size="sm"
+        key={data}
+        onClick={() => setSelectedOption(data)}
+      >
+        {data}
+      </Text>
       ) 
     }
       </Flex>

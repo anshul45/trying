@@ -52,7 +52,7 @@ const InputNode = ({ data, id }) => {
           height: "15px",
         }}
         position={Position.Right}
-        id="a"
+        id="input-handle"
       />
     </Box>
   );
