@@ -97,13 +97,13 @@ import OpenAINode from "./nodes/llmNodes/OpenaiNode";
 
 
   return (
-    <div style={{ height: "90.9vh", position:"relative" }}>
+    <div style={{ height: "90.8vh", position:"relative" }}>
      {openOptions && <FlowOptions setNodes={setNodes}/> }
      { openOptions ? <RiCloseLargeFill className="absolute ml-8 mt-36 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={20} onClick={() => setOpenOptions(!openOptions)}/> : <MdAddCircle className="absolute ml-8 mt-1 text-gray-500 z-50 cursor-pointer hover:shadow-2xl rounded-full" size={35} onClick={() => setOpenOptions(!openOptions)}/>
      }
       <ReactFlow
-        maxZoom={1.5}
-        minZoom={0.9}
+        maxZoom={1.7}
+        minZoom={0.5}
         edges={edges}
         edgeTypes={edgeTypes}
         onEdgesChange={onEdgesChange}
@@ -115,7 +115,7 @@ import OpenAINode from "./nodes/llmNodes/OpenaiNode";
         onConnect={onConnect}
         onDrop={onDrop}
         onDragOver={onDragOver}
-        fitView
+        fitView={false}
       >
         <Background />
         <Controls position="bottom-left" />
