@@ -4,6 +4,7 @@ from routes.edgesRoutes import edgeRouter
 from routes.nodesRoutes import nodeRouter
 from dotenv import load_dotenv
 from lib.prisma_client import connect_prisma,disconnect_prisma
+from routes.chatRoutes import chatRouter
 
 app = FastAPI()
 
@@ -22,6 +23,7 @@ async def shutdown():
 app.include_router(authRouter)
 app.include_router(edgeRouter)
 app.include_router(nodeRouter)
+app.include_router(chatRouter)
 
 
 @app.get("/health")
