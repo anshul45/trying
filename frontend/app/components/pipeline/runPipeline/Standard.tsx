@@ -8,13 +8,10 @@ const Standard = () => {
             <ScrollArea w='100%' h={258} className='border-b-2' offsetScrollbars scrollbarSize={6} >
         <Title size={20}>Inputs</Title>
         <Textarea description='input_1' placeholder='input_1'/>
-        <Textarea description='input_1' placeholder='input_1'/>
-        <Textarea description='input_1' placeholder='input_1'/>
-        <Textarea description='input_1' placeholder='input_1'/>
             </ScrollArea>
         
 
-            <ScrollArea w='100%' h={178} offsetScrollbars scrollbarSize={6}>
+            <ScrollArea w='100%' h={145} offsetScrollbars scrollbarSize={6}>
         <Title size={20}>Outputs</Title>
         <Textarea description='input_1'  placeholder='input_1'/>
 

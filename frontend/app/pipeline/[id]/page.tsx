@@ -15,7 +15,7 @@ const page = () => {
     <Flow/>
     </Panel>
     <PanelResizeHandle style={{width:"5px"}} />
-    <Panel defaultSizePercentage={30}>
+    <Panel defaultSizePercentage={30} minSizePercentage={30}>
       <RunPipeline/>
       </Panel>
 
