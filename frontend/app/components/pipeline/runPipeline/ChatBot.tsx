@@ -7,21 +7,30 @@ import { LuSend } from "react-icons/lu";
 const ChatBot = () => {
   const[input,setInput] = useState<string>("")
   const socketRef = useRef<WebSocketService | null>(null);
-
-  useEffect(()=>{
-  const socket =   webSocketService()
-  socket.connect()
-  socketRef.current = socket;
-
-  return () => {
-    socket.disconnect();
-  }
-  },[])
+  const [messages, setMessages] = useState<{ user: string; message: string }[]>([]);
 
 
-  const handleSend = () =>{
-    if(!input) return;
-    socketRef.current?.sendMessage({"message":input})
+  useEffect(() => {
+    const socket = webSocketService();
+    socket.connect();
+    socketRef.current = socket;
+  
+    socket.onMessage((message) => {
+      setMessages((prev) => [...(prev || []), { user: "Agent", message }]);
+    });
+  
+    return () => {
+      socket.disconnect();
+    };
+  }, [webSocketService]);
+
+
+  const handleSend = () => {
+    if (input.trim()) {
+      socketRef.current?.sendMessage({ message: input });
+      setMessages((prev) => [...(prev || []), { user: "You", message: input }]);
+      setInput(""); 
+    }
   }
 
   return (
@@ -43,13 +52,17 @@ const ChatBot = () => {
             </Box>
         </Flex>
         <Center mt={10} className='font-semibold text-gray-500 cursor-pointer'>Clear chat</Center>
-        <Message user="Anshul" message='Hello'/>
+       <Flex direction='column' gap={15} h={244} style={{overflowY:"auto",scrollbarWidth:"thin"}} mt={5}>
+        {messages.map((msg, index) => (
+          <Message key={index} user={msg.user} message={msg.message} />
+        ))}
+        </Flex>
       </Box>
       <Box pb={10}>
         <Divider mb={7}/>
         <Flex>
         <Flex className='w-full border-[1px] pr-2' align='center'>
-        <TextInput w='100%' styles={{input:{border:"none"}}} placeholder="Text input"/>
+        <TextInput w='100%' value={input} onChange={e =>setInput(e.target.value)} styles={{input:{border:"none"}}} placeholder="Text input"/>
         <div className='cursor-pointer' onClick={handleSend}>
         <LuSend/>
         </div>
@@ -68,7 +81,7 @@ const Message = ({ user, message }: { user: string; message: string }) => {
         <div className='px-3 py-1 bg-[#383973] text-white font-semibold rounded-lg'>{user[0]}</div>
         <div className="font-bold text-sm pt-3 text-[#383973]">{user}</div>
       </Flex>
-      <Text>{message}</Text>
+      <Text className='text-sm'>{message}</Text>
     </Flex>
   );
 };
