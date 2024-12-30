@@ -34,7 +34,7 @@ const ChatBot = () => {
   }
 
   return (
-    <Flex direction='column' justify='space-between' h="80%">
+    <Flex direction='column' justify='space-between'>
       <Box>
         <Flex align='center' gap={10}>
         <LuInfo size={20}/>
@@ -52,7 +52,7 @@ const ChatBot = () => {
             </Box>
         </Flex>
         <Center mt={10} className='font-semibold text-gray-500 cursor-pointer'>Clear chat</Center>
-       <Flex direction='column' gap={15} h={244} style={{overflowY:"auto",scrollbarWidth:"thin"}} mt={5}>
+       <Flex direction='column' gap={15} h={233} style={{overflowY:"auto",scrollbarWidth:"thin"}} mt={5}>
         {messages.map((msg, index) => (
           <Message key={index} user={msg.user} message={msg.message} />
         ))}

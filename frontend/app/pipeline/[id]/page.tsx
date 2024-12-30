@@ -23,28 +23,28 @@ const Page = () => {
   ];
 
   return (
-    <Box m={10} className="border-[1px] rounded-md relative">
-      <Header title="Pipelines" buttons={buttons} />
-      <Flow />
-      {openPipeline && (
-        <Box className="absolute w-full top-[45px] right-0 h-full  shadow-md z-50">
+    <Box m={10} className="border-[1px] rounded-md ">
+            <Header title="Pipelines" buttons={buttons} />
           <PanelGroup direction="horizontal">
             <Panel defaultSizePercentage={70} minSizePercentage={-10}>
-             <Box className='-z-[990]'></Box>
+      <Flow />
             </Panel>
+      {openPipeline && (
+        <>
             <PanelResizeHandle   style={{ 
-    width: "3px", 
-    backgroundColor: "white", 
-    borderLeft: "2px solid #6B7280" 
-  }}  />
+              width: "3px", 
+              backgroundColor: "white", 
+              borderLeft: "2px solid #6B7280" 
+            }}  />
             <Panel defaultSizePercentage={30} minSizePercentage={30}>
               <Box>
               <RunPipeline setOpenPipeline={setOpenPipeline} />
               </Box>
             </Panel>
+            </>
+          )}
           </PanelGroup>
-        </Box>
-      )}
+      
     </Box>
   );
 };

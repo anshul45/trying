@@ -5,7 +5,7 @@ const Standard = () => {
   return (
     <Box mt={10} mx={20}>
        
-            <ScrollArea w='100%' h={258} className='border-b-2' offsetScrollbars scrollbarSize={6} >
+            <ScrollArea w='100%' h={248} className='border-b-2' offsetScrollbars scrollbarSize={6} >
         <Title size={20}>Inputs</Title>
         <Textarea description='input_1' placeholder='input_1'/>
             </ScrollArea>
