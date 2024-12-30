@@ -13,10 +13,8 @@ import type { NodeProps } from '@xyflow/react';
 
 const InputNode = ({ data, id }:NodeProps) => {
   const { updateNodeData } = useReactFlow();
-  const [inputValue, setInputValue] = useState<string>("input_1");
+  const [inputValue, setInputValue] = useState<string>(data?.label);
   const dispatch = useDispatch()
-
-  console.log("data",data.label)
 
   checkNode(id)
 

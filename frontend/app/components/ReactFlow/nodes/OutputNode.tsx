@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Handle, Position } from '@xyflow/react'
+import React, { useEffect, useState } from 'react'
+import { Handle, Position, useReactFlow } from '@xyflow/react'
 import { Box, Select,  Textarea,  TextInput } from '@mantine/core'
 import { MdOutput } from 'react-icons/md'
 import NodesHead from './NodesHead';
@@ -8,11 +8,19 @@ import { RootState } from '@/lib/redux/store';
 import type { NodeProps } from '@xyflow/react';
 
 
-const OutputNode = ({id}:NodeProps) => {
-
+const OutputNode = ({id,data}:NodeProps) => {
+ const { updateNodeData } = useReactFlow();
   const selected = useSelector((state:RootState) => state.toggle.showOutputNode)
   const outputData = useSelector((state:RootState) => state.data.outputData)
-  const[inputValue,setInputValue] = useState<string>("input_1")
+  const[inputValue,setInputValue] = useState<string>(data?.label)
+
+
+    useEffect(() => {
+      const data = {
+        label: inputValue,
+      };
+      updateNodeData(id, data);
+    }, [inputValue]);
 
   
 
@@ -47,5 +55,7 @@ const OutputNode = ({id}:NodeProps) => {
   </Box>
   )
 }
+
+
 
 export default OutputNode
