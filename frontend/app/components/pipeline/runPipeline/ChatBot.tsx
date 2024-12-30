@@ -1,29 +1,31 @@
+import { updateOutputData } from '@/lib/redux/slice/dataSlice';
+import { webSocketService,WebSocketService } from '@/lib/webhook/websocket';
 import { Box, Center, Divider, Flex, Input, MantineProvider, Select, Text, TextInput } from '@mantine/core';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { LuInfo } from "react-icons/lu";
-import { WebSocketService, webSocketService } from '@/lib/webhook/websocket';
 import { LuSend } from "react-icons/lu";
+import { useDispatch } from 'react-redux';
 
-const ChatBot = () => {
+interface ChatBotProps {
+  socketRef: React.RefObject<WebSocketService>;
+}
+
+const ChatBot :FC<ChatBotProps> = ({socketRef}) => {
   const[input,setInput] = useState<string>("")
-  const socketRef = useRef<WebSocketService | null>(null);
   const [messages, setMessages] = useState<{ user: string; message: string }[]>([]);
+  const dispatch = useDispatch()
 
+    useEffect(() => {
+      socketRef.current?.onMessage((message) => 
+      {       
+         const data = JSON.parse(message);
 
-  useEffect(() => {
-    const socket = webSocketService();
-    socket.connect();
-    socketRef.current = socket;
-  
-    socket.onMessage((message) => {
-      setMessages((prev) => [...(prev || []), { user: "Agent", message }]);
-    });
-  
-    return () => {
-      socket.disconnect();
-    };
-  }, [webSocketService]);
+         dispatch(updateOutputData(data?.message))
 
+      setMessages((prev) => [...(prev || []), { user: "Agent", message: data.message }])
+}
+      )
+    },[socketRef.current?.onMessage])  
 
   const handleSend = () => {
     if (input.trim()) {
@@ -51,7 +53,7 @@ const ChatBot = () => {
 
             </Box>
         </Flex>
-        <Center mt={10} className='font-semibold text-gray-500 cursor-pointer'>Clear chat</Center>
+        <Center mt={10} className='font-semibold text-gray-500 cursor-pointer' onClick={() => setMessages([])}>Clear chat</Center>
        <Flex direction='column' gap={15} h={233} style={{overflowY:"auto",scrollbarWidth:"thin"}} mt={5}>
         {messages.map((msg, index) => (
           <Message key={index} user={msg.user} message={msg.message} />

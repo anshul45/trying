@@ -1,15 +1,23 @@
 import { Box, Center, Text, Title } from "@mantine/core"
 import { useDnD } from "./dnd/UseDnD";
+import { inputLabel } from "@/lib/flow/getLabel";
+import { useEffect, useState } from "react";
+import { useReactFlow } from "@xyflow/react";
 
 
 const FlowOptionsCard = ({title,icon,setNodes}:any) => {
 
   const[_,setType] = useDnD();
+  
+  const label = useInputLabel()
+
+  console.log("label",label)
+
 
 
   const onDragStart = (event:React.DragEvent,nodeType:string) => {
     setType(nodeType)
-    const data = JSON.stringify({ type: nodeType });
+    const data = JSON.stringify({ type: nodeType,label:`input_${label}`});
     event.dataTransfer.setData("application/json", data);
     event.dataTransfer.effectAllowed = 'move';
   }
@@ -24,7 +32,7 @@ const FlowOptionsCard = ({title,icon,setNodes}:any) => {
       const handleClick =() => {
         const id = crypto.randomUUID();
         const position = { x: 100, y: 100 }
-          setNodes((prev:any) => [...prev,{id,position,type:optionMap[title]}] )
+          setNodes((prev:any) => [...prev,{id,position,type:optionMap[title],data:{label:`input_${label}`}}] )
         
       }
 
@@ -41,5 +49,24 @@ const FlowOptionsCard = ({title,icon,setNodes}:any) => {
     </Box>
   )
 }
+
+
+
+const useInputLabel = (): number => {
+  const { getNodes } = useReactFlow();
+  const [label, setLabel] = useState(0);
+
+  useEffect(() => {
+    const nodes = getNodes();
+    const inputNodes = nodes.filter(node => node.type === "inputNode");
+    setLabel(inputNodes.length);
+  }, [getNodes]);
+
+  return label+1;
+};
+
+
+
+
 
 export default FlowOptionsCard

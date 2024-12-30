@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import sideBarReducer from "./slice/showSidebarSlice"
+import toggleSlice from "./slice/toggleSlice"
+import dataSlice from "./slice/dataSlice"
 
 export const store = configureStore({
     reducer:{
-        sidebar : sideBarReducer
+        toggle : toggleSlice,
+        data : dataSlice
     }
 })
 

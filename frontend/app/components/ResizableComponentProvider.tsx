@@ -20,7 +20,7 @@ const ResizableComponentProvider = ({ children }: ProvidersProps) => {
   const sidebarNotVisible = ["/login", "/login/password", "/register", "/register/password", "/"];
   const visible = useMemo(() => !sidebarNotVisible.includes(path), [path]);
 
-  const isShow = useSelector((store: RootState) => store.sidebar.showSidebar, shallowEqual);
+  const isShow = useSelector((store: RootState) => store.toggle.showSidebar, shallowEqual);
 
   useEffect(() => {
     const handleResize = () => window.dispatchEvent(new Event("resize"));

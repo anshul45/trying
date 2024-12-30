@@ -43,10 +43,10 @@ import OpenAINode from "./nodes/llmNodes/OpenaiNode";
   
   
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  console.log(nodes)
+  // console.log(nodes)
   
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  console.log(edges)
+  // console.log(edges)
   const [openOptions, setOpenOptions] = useState<boolean>(false)
   const { screenToFlowPosition } = useReactFlow();
 
@@ -59,11 +59,11 @@ import OpenAINode from "./nodes/llmNodes/OpenaiNode";
   );
 
   const onEdgesDelete = useCallback((edges:Edge[]) => {
-    console.log("edges",edges)
+    // console.log("edges",edges)
   },[])
 
   const onNodesDelete = useCallback((nodes:Node[])=> {
-    console.log("nodes",nodes)
+    // console.log("nodes",nodes)
   },[])
 
  
@@ -74,7 +74,7 @@ import OpenAINode from "./nodes/llmNodes/OpenaiNode";
     event.preventDefault();
   const data = event.dataTransfer.getData("application/json");
 
-  const { type } = JSON.parse(data)
+  const { type,label } = JSON.parse(data)
   
   const id = crypto.randomUUID();
 
@@ -84,7 +84,7 @@ import OpenAINode from "./nodes/llmNodes/OpenaiNode";
   });
      
       
-  setNodes((prev: any) => [...prev, { id, position, type }]);
+  setNodes((prev: any) => [...prev, { id, position, type,data:{label} }]);
     },
     [screenToFlowPosition,],
   );

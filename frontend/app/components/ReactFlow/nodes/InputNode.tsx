@@ -1,18 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Handle, Position, useReactFlow } from "@xyflow/react";
-import { Box, Select, Text, TextInput } from "@mantine/core";
+import { Box, Select, Text, Textarea, TextInput } from "@mantine/core";
 import { MdInput,  } from "react-icons/md";
 import NodesHead from "./NodesHead";
+import { checkNode } from "@/lib/flow/checkNodes";
+import { useSelector,useDispatch } from "react-redux";
+import { RootState } from "@/lib/redux/store";
+import { updateInputData } from "@/lib/redux/slice/dataSlice";
+
 
 const InputNode = ({ data, id }) => {
   const { updateNodeData } = useReactFlow();
   const [inputValue, setInputValue] = useState<string>("input_1");
+  const dispatch = useDispatch()
+
+  console.log("data",data.label)
+
+  checkNode(id)
+
+  const selected = useSelector((store : RootState) => store.toggle.showInputNode)
+
+  const inputData = useSelector((store:RootState) => store.data.inputData)
 
  
   // Update node data when inputValue changes
   useEffect(() => {
     const data = {
-      input: inputValue,
+      label: inputValue,
     };
     updateNodeData(id, data);
   }, [inputValue]);
@@ -22,13 +36,13 @@ const InputNode = ({ data, id }) => {
       <NodesHead id={id} icon={<MdInput/>} title='Input'/>
       <Box px={10}>
         <TextInput
+          variant="unstyled"
           size="compact-sm"
           label="Field Name"
           styles={{
-            input: { border: "none", marginLeft: "10px" },
             label: { color: "grey" },
           }}
-          value={inputValue}
+          value={data?.label}
           onChange={(e) => setInputValue(e.target.value)}
         />
         <Select
@@ -41,7 +55,23 @@ const InputNode = ({ data, id }) => {
             label: { color: "grey" },
           }}
         />
-        <Text className="absolute z-10 text-xs left-[17rem] top-[50%]">{inputValue}</Text>
+        {selected &&<Box mb={3}>
+        <Textarea
+          size="compact-sm"
+          label="Pipeline Run input"
+          placeholder={inputValue}
+          autosize
+          minRows={2}
+          maxRows={6}
+          value={inputData}
+          onChange={e => dispatch(updateInputData(e.target.value))}
+          styles={{
+            input:{paddingLeft:"5px", paddingTop:"3px",paddingBottom:"3px"},
+            label: { color: "black" },
+          }}
+          />
+          </Box>}
+          <Text className="absolute z-10 text-xs left-[17rem] top-[50%]">{inputValue}</Text>
       </Box>
       <Handle
         type="source"

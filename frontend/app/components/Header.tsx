@@ -1,5 +1,5 @@
 "use client"
-import { toggleSidebar } from '@/lib/redux/slice/showSidebarSlice';
+import { toggleSidebar } from '@/lib/redux/slice/toggleSlice';
 import { Button, Flex, Text } from '@mantine/core'
 import { LuPanelRightOpen } from 'react-icons/lu'
 import { useDispatch } from 'react-redux'

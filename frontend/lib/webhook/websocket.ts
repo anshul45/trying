@@ -13,7 +13,7 @@ export class WebSocketService {
         if(!this.socket) {
             throw new Error("WebSocket is not initialized. Call connect() first.");
         }
-        this.socket.onmessage = (event) =>{
+        this.socket.onmessage = (event:MessageEvent) =>{
             callback(event.data)
         }
     }
@@ -25,15 +25,19 @@ export class WebSocketService {
           this.socket.send(JSON.stringify(data));
     }
 
-    disconnect() {
+    disconnect(): void {
         if (this.socket) {
-          this.socket.close();
+          if (this.socket.readyState === WebSocket.OPEN) {
+            this.socket.close();
+            console.log("WebSocket connection closed.");
+          } else {
+            console.log("WebSocket is already closed or in the process of closing.");
+          }
         }
       }
 
 }
 
 export const webSocketService = () => {
-    console.log("hit")
     return new WebSocketService("ws://localhost:8000/chat");
 }

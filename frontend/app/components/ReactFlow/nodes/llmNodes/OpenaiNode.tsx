@@ -75,7 +75,7 @@ const OpenAINode = ({ data, id }) => {
           top:65
         }}
         position={Position.Left}
-        id="b"
+        id="openai-prompt"
       />
 <Text className="absolute z-10 text-xs right-[17rem] top-[30%]">system</Text>
 
@@ -89,7 +89,7 @@ const OpenAINode = ({ data, id }) => {
           top:125
         }}
         position={Position.Left}
-        id="a"
+        id="openai-system"
       />
 
 <Text className="absolute z-10 text-xs right-[17rem] top-[60%]">prompt</Text>
