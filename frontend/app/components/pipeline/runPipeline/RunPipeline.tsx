@@ -4,13 +4,13 @@ import Standard from "./Standard";
 import ChatBot from "./ChatBot";
 import OptionSelector from "../../ui/OptionSelector";
 import { useState } from "react";
-const RunPipeline = () => {
+const RunPipeline = ({setOpenPipeline}:any) => {
   const[options,setOptions] = useState<string[]>(["STANDARD","CHATBOT"])
   const[selectedOption,setSelectedOption] = useState<string>("CHATBOT")
   return (
-    <Box className="border-l-2 h-full pl-3.5 pr-2.5">
+    <Box className="h-full pl-3.5 pr-2.5 bg-white">
         <Flex align='center' pt={10} gap={20}>
-        <FaAngleRight size={25}/>
+        <FaAngleRight size={25} className="cursor-pointer" onClick={() => setOpenPipeline(false)}/>
         <Text size="lg">Run Pipeline</Text>
         </Flex>
         <div className="my-5">

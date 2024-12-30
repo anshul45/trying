@@ -22,7 +22,7 @@ import FlowOptions from "./FlowOptions";
 import InputNode from "./nodes/InputNode";
 import OutputNode from "./nodes/OutputNode";
 import TextNode from "./nodes/TextNode";
-import { DnDProvider, useDnD } from './DnDContext';
+import DnDProvider from "./dnd/DnDProvider";
 import CustomEdge from "./CustomEdge";
 import OpenAINode from "./nodes/llmNodes/OpenaiNode";
 

@@ -14,7 +14,7 @@ const Header = ({title,buttons}:any) => {
     </Flex>
     <Flex align='center' gap={10}>
       {buttons?.map((data:any) =>(  
-        <Button variant="outline" className="text-xs px-3" size="compact-sm" key={data.title} onClick={data.action}>{data.title}</Button>
+        <Button variant={data.type == "node"?"transparent":"default"} className="text-xs px-3" size="compact-sm" key={data.title} onClick={data.action}>{data.title}</Button>
       ) 
       )}
     </Flex>

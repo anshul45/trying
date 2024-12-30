@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { SessionProvider } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import { RootState } from "@/lib/redux/store";
 import SideBar from "./SideBar";
 
@@ -18,21 +18,19 @@ const ResizableComponentProvider = ({ children }: ProvidersProps) => {
   const path = usePathname();
 
   const sidebarNotVisible = ["/login", "/login/password", "/register", "/register/password", "/"];
-  const visible = !sidebarNotVisible.includes(path);
+  const visible = useMemo(() => !sidebarNotVisible.includes(path), [path]);
 
-  const isShow = useSelector((store: RootState) => store.sidebar.showSidebar);
+  const isShow = useSelector((store: RootState) => store.sidebar.showSidebar, shallowEqual);
 
   useEffect(() => {
-    window.dispatchEvent(new Event("resize"));
+    const handleResize = () => window.dispatchEvent(new Event("resize"));
+    handleResize();
   }, []);
-  
 
   return (
     <SessionProvider>
-     <PanelGroup
-        direction="horizontal"
-      >
-        {(visible && isShow) && (
+      <PanelGroup direction="horizontal">
+        {visible && isShow && (
           <>
             <Panel defaultSizePercentage={19} minSizePercentage={19} maxSizePercentage={30}>
               <SideBar />
@@ -41,11 +39,11 @@ const ResizableComponentProvider = ({ children }: ProvidersProps) => {
           </>
         )}
         <Panel
-          defaultSizePercentage={(visible && isShow) ? 81 : 100}
-          minSizePercentage={(visible && isShow) ? 70 : 100}
-          maxSizePercentage={(visible && isShow) ? 81 : 100}
+          defaultSizePercentage={visible && isShow ? 81 : 100}
+          minSizePercentage={visible && isShow ? 70 : 100}
+          maxSizePercentage={visible && isShow ? 81 : 100}
         >
-          {children }
+          {children}
         </Panel>
       </PanelGroup>
     </SessionProvider>
