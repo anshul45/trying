@@ -1,4 +1,4 @@
-import { BaseEdge, EdgeLabelRenderer, EdgeProps, getSmoothStepPath, getStraightPath, useReactFlow } from "@xyflow/react";
+import { BaseEdge, EdgeLabelRenderer, EdgeProps, getSmoothStepPath, useReactFlow } from "@xyflow/react";
 import { MdClose } from "react-icons/md";
 
 export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, selected,

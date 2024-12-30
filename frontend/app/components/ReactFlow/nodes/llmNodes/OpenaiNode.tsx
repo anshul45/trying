@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Handle, Position, useReactFlow } from "@xyflow/react";
 import { Box, Select, Text, TextInput } from "@mantine/core";
-import { MdInput,  } from "react-icons/md";
 import NodesHead from "../NodesHead";
 import { SiOpenai } from "react-icons/si";
+import type { NodeProps } from '@xyflow/react';
 
-const OpenAINode = ({ data, id }) => {
+const OpenAINode = ({ data, id }:NodeProps) => {
   const { updateNodeData } = useReactFlow();
   const [inputValue, setInputValue] = useState<string>("");
 

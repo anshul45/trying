@@ -1,8 +1,9 @@
-import { Box, Button, Center, Checkbox, Flex, Modal, Select, Text, TextInput, Title } from '@mantine/core'
-import React from 'react'
+import { PipelineMenuProps } from '@/lib/common/types';
+import { Box, Button, Checkbox, Flex, Modal, Select, Text, TextInput, Title } from '@mantine/core'
+import React, { FC } from 'react'
 import { FiFolderPlus } from "react-icons/fi";
 
-const PipelineMenu = ({showModal,setShowModal}:any) => {
+const PipelineMenu:FC<PipelineMenuProps> = ({showModal,setShowModal}) => {
   return (
     <Modal opened={showModal}  onClose={() => setShowModal(false)} styles={{
         content: { 

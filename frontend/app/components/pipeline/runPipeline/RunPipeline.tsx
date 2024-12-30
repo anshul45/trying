@@ -3,13 +3,14 @@ import { FaAngleRight } from "react-icons/fa6";
 import Standard from "./Standard";
 import ChatBot from "./ChatBot";
 import OptionSelector from "../../ui/OptionSelector";
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleInputNode } from "@/lib/redux/slice/toggleSlice";
 import { WebSocketService, webSocketService } from '@/lib/webhook/websocket';
+import { RunPipelineProps } from "@/lib/common/types";
 
 
-const RunPipeline = ({setOpenPipeline}:any) => {
+const RunPipeline:FC<RunPipelineProps> = ({setOpenPipeline}) => {
   const[options,setOptions] = useState<string[]>(["STANDARD","CHATBOT"])
   const[selectedOption,setSelectedOption] = useState<string>("CHATBOT")
     const socketRef = useRef<WebSocketService | null>(null);

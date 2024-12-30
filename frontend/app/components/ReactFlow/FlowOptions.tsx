@@ -1,6 +1,6 @@
 "use client"
 import { Box, Flex, Input, Text } from '@mantine/core'
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { IoMdSearch } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import FlowOptionsCard from './FlowOptionsCard';
@@ -12,7 +12,7 @@ import { SiOpenai } from "react-icons/si";
 const FlowOptions = ({setNodes}:any) => {
   const[searchOpen,setSearchOpen] = useState<boolean>(false);
   const[selectedOption, setSelectedOption] = useState<string>("General")
-  const[cardData, setCardData] = useState([])
+  const[cardData, setCardData] = useState<{icon:ReactNode,title:string}[]>([])
   
   const options = ["General","LLMs","Knowledge Base","Integrations","Data Loaders","Multi-Modal","Logic","Chat"]
 

@@ -1,10 +1,12 @@
 "use client"
+import { HeaderProps } from '@/lib/common/types';
 import { toggleSidebar } from '@/lib/redux/slice/toggleSlice';
 import { Button, Flex, Text } from '@mantine/core'
+import { FC } from 'react';
 import { LuPanelRightOpen } from 'react-icons/lu'
 import { useDispatch } from 'react-redux'
 
-const Header = ({title,buttons}:any) => {
+const Header:FC<HeaderProps> = ({title,buttons}) => {
   const dispatch = useDispatch();
   return (
     <Flex py={9} px={15} bottom={10} align='center' justify='space-between' className="border-b-[1px]">

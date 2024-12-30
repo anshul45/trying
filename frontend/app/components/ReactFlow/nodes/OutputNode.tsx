@@ -5,8 +5,10 @@ import { MdOutput } from 'react-icons/md'
 import NodesHead from './NodesHead';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/redux/store';
+import type { NodeProps } from '@xyflow/react';
 
-const OutputNode = ({id}:any) => {
+
+const OutputNode = ({id}:NodeProps) => {
 
   const selected = useSelector((state:RootState) => state.toggle.showOutputNode)
   const outputData = useSelector((state:RootState) => state.data.outputData)

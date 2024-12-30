@@ -1,6 +1,5 @@
 import { Box, Center, Text, Title } from "@mantine/core"
 import { useDnD } from "./dnd/UseDnD";
-import { inputLabel } from "@/lib/flow/getLabel";
 import { useEffect, useState } from "react";
 import { useReactFlow } from "@xyflow/react";
 

@@ -1,7 +1,8 @@
+import { OptionSelectorProps } from '@/lib/common/types'
 import { Flex } from '@mantine/core'
-import React from 'react'
+import React, { FC } from 'react'
 
-const OptionSelector = ({options, selectedOption,setSelectedOption}:any) => {
+const OptionSelector:FC<OptionSelectorProps> = ({options, selectedOption,setSelectedOption}) => {
   return (
     <Flex gap={3} className='bg-white  border-[1px] rounded-md'>
         {options?.map((option:string) => 

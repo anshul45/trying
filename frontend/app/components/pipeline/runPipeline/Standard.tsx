@@ -1,3 +1,4 @@
+import { StandardProps } from '@/lib/common/types'
 import { updateInputData, updateOutputData } from '@/lib/redux/slice/dataSlice'
 import { RootState } from '@/lib/redux/store'
 import { WebSocketService } from '@/lib/webhook/websocket'
@@ -5,9 +6,7 @@ import { Box, Button, ScrollArea, Textarea, Title } from '@mantine/core'
 import React, { FC, useEffect } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 
-interface StandardProps {
-  socketRef: React.RefObject<WebSocketService>;
-}
+
 
 const Standard:FC<StandardProps> = ({socketRef}) => {
   const dispatch = useDispatch()

@@ -1,14 +1,12 @@
+import { ChatBotProps } from '@/lib/common/types';
 import { updateOutputData } from '@/lib/redux/slice/dataSlice';
-import { webSocketService,WebSocketService } from '@/lib/webhook/websocket';
-import { Box, Center, Divider, Flex, Input, MantineProvider, Select, Text, TextInput } from '@mantine/core';
-import React, { FC, useEffect, useRef, useState } from 'react'
+import { Box, Center, Divider, Flex, Select, Text, TextInput } from '@mantine/core';
+import React, { FC, useEffect, useState } from 'react'
 import { LuInfo } from "react-icons/lu";
 import { LuSend } from "react-icons/lu";
 import { useDispatch } from 'react-redux';
 
-interface ChatBotProps {
-  socketRef: React.RefObject<WebSocketService>;
-}
+
 
 const ChatBot :FC<ChatBotProps> = ({socketRef}) => {
   const[input,setInput] = useState<string>("")
@@ -16,7 +14,7 @@ const ChatBot :FC<ChatBotProps> = ({socketRef}) => {
   const dispatch = useDispatch()
 
     useEffect(() => {
-      socketRef.current?.onMessage((message) => 
+      socketRef.current?.onMessage((message:string) => 
       {       
          const data = JSON.parse(message);
 

@@ -1,12 +1,11 @@
 "use client"
 ;
+import { SelectorProps } from "@/lib/common/types";
 import { Box, Flex, Text } from "@mantine/core";
 import React, { useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 
-interface SelectorProps {
-    title:string
-}
+
 
 const Selector:React.FC<SelectorProps> = ({title}) => {
   const [open,setOpen] = useState<boolean>(false)

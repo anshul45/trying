@@ -1,7 +1,7 @@
 import { Button, Flex, Text, Title } from '@mantine/core'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
-const CreateNewCard = ({title,icon}:{title:string,icon:any}) => {
+const CreateNewCard = ({title,icon}:{title:string,icon:ReactNode}) => {
       return (
     <>
     <Title size='sm' mb={5}>{title}</Title>

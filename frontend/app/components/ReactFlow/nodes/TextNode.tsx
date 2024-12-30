@@ -3,7 +3,9 @@ import { Handle, Position } from '@xyflow/react'
 import { Box, Text, Textarea } from '@mantine/core'
 import { MdOutlineTextSnippet } from "react-icons/md";
 import NodesHead from './NodesHead';
-const TextNode = ({id}) => {
+import type { NodeProps } from '@xyflow/react';
+
+const TextNode = ({id}:NodeProps) => {
 
   const[inputValue,setInputValue] = useState<string>("variable")
 
@@ -13,7 +15,8 @@ const TextNode = ({id}) => {
       <Text className="absolute z-10 text-xs right-[17rem] top-[50%]">{inputValue}</Text>
   <Handle type='target' style={{background:"white",border:"1px solid black",  width:'15px', height:'15px'}} position={Position.Left} id='text-target-handle'/>
   <Handle type='source' style={{background:"white",border:"1px solid black",  width:'15px', height:'15px'}} position={Position.Right} id='text-source-handle'/>
-      <Text className="absolute z-10 text-xs left-[17rem] top-[50%]" onChange={e => setInputValue(e.target.value)}>{'output'}</Text>
+
+      <Text className="absolute z-10 text-xs left-[17rem] top-[50%]" onChange={e =>  setInputValue(e.target?.value)}>{'output'}</Text>
   </Box>
   )
 }

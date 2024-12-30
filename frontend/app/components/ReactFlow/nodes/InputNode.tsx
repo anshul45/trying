@@ -7,9 +7,11 @@ import { checkNode } from "@/lib/flow/checkNodes";
 import { useSelector,useDispatch } from "react-redux";
 import { RootState } from "@/lib/redux/store";
 import { updateInputData } from "@/lib/redux/slice/dataSlice";
+import type { NodeProps } from '@xyflow/react';
 
 
-const InputNode = ({ data, id }) => {
+
+const InputNode = ({ data, id }:NodeProps) => {
   const { updateNodeData } = useReactFlow();
   const [inputValue, setInputValue] = useState<string>("input_1");
   const dispatch = useDispatch()
@@ -42,6 +44,7 @@ const InputNode = ({ data, id }) => {
           styles={{
             label: { color: "grey" },
           }}
+          //@ts-ignore
           value={data?.label}
           onChange={(e) => setInputValue(e.target.value)}
         />

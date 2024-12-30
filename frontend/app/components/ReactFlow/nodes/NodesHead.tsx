@@ -1,9 +1,10 @@
 import { Box, Flex, Text } from '@mantine/core'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import {MdOutlineCancel } from 'react-icons/md'
 import {useReactFlow } from "@xyflow/react";
+import { NodesHeadProps } from '@/lib/common/types';
 
-const NodesHead = ({id, icon, title}:any) => {
+const NodesHead:FC<NodesHeadProps> = ({id, icon, title}) => {
 
   const [isClicked, setIsClicked] = useState(false); 
 

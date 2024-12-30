@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import DnDContext from "./DnDContext";
 
-export const DnDProvider = ({ children }:any) => {
+export const DnDProvider = ({ children }:{children:ReactNode}) => {
     const [type, setType] = useState(null);
    
     return (
