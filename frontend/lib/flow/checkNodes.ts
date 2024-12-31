@@ -22,3 +22,11 @@ export const checkNode = (id:string) => {
     const connected = edge.some(edge => edge.source === inputNodeId?.id && edge.target === outputNodeId?.id)
     console.log(connected)
 }
+
+export const getInputNodes = () => {
+  const {getNodes} = useReactFlow() 
+  const nodes = getNodes()
+  const inputNodes = nodes
+  .find(node => node.type === "inputNode")
+  return inputNodes
+}

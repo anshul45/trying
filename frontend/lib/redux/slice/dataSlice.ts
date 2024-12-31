@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialStateProps{
 inputData:string
+inputNodes:any[]
 outputData:string
 }
 
 const initialState:InitialStateProps = {
     inputData:"",
-    outputData:""
+    outputData:"",
+    inputNodes:[]
 }
 
 const dataSlice = createSlice({
@@ -19,10 +21,13 @@ const dataSlice = createSlice({
         },
         updateOutputData(state,action){
             state.outputData = action.payload
+        },
+        updateinputNodes(state,action){
+            state.inputNodes = action.payload
         }
     }
 })
 
-export const {updateInputData,updateOutputData} = dataSlice.actions;
+export const {updateInputData,updateOutputData,updateinputNodes} = dataSlice.actions;
 
 export default dataSlice.reducer;

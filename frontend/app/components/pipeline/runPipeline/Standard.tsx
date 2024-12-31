@@ -1,10 +1,11 @@
 import { StandardProps } from '@/lib/common/types'
 import { updateInputData, updateOutputData } from '@/lib/redux/slice/dataSlice'
 import { RootState } from '@/lib/redux/store'
-import { WebSocketService } from '@/lib/webhook/websocket'
 import { Box, Button, ScrollArea, Textarea, Title } from '@mantine/core'
 import React, { FC, useEffect } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
+import { useReactFlow } from "@xyflow/react";
+
 
 
 
@@ -12,6 +13,9 @@ const Standard:FC<StandardProps> = ({socketRef}) => {
   const dispatch = useDispatch()
   const inputData = useSelector((store:RootState) => store.data.inputData)
   const outputData = useSelector((store:RootState) => store.data.outputData)
+  const inputNodes = useSelector((store:RootState) => store.data.inputNodes)
+
+  const {getNodes} = useReactFlow()
 
    useEffect(() => {
         socketRef.current?.onMessage((message) => 
@@ -33,7 +37,9 @@ const Standard:FC<StandardProps> = ({socketRef}) => {
        
             <ScrollArea w='100%' h={248} className='border-b-2' offsetScrollbars scrollbarSize={6} >
         <Title size={20}>Inputs</Title>
-        <Textarea description='input_1' placeholder='input_1' value={inputData} onChange={e => dispatch(updateInputData(e.target.value)) } />
+        {inputNodes && inputNodes.map(nodes => 
+        <Textarea key={nodes.id} description={nodes.data.label} placeholder={nodes.data.label} value={inputData} onChange={e => dispatch(updateInputData(e.target.value)) } />
+        )}
             </ScrollArea>
         
 
