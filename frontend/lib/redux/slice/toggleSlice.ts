@@ -4,12 +4,14 @@ interface Show {
     showSidebar:boolean;
     showInputNode:boolean;
     showOutputNode:boolean;
+    showPipeline:boolean;
 }
 
 const initialState:Show = {
     showSidebar:true,
     showInputNode:false,
-    showOutputNode:false
+    showOutputNode:false,
+    showPipeline:false
 }
 
 const toggleSlice = createSlice({
@@ -20,15 +22,18 @@ const toggleSlice = createSlice({
             state.showSidebar = !state.showSidebar
         },
 
-        toggleInputNode(state,action) {
+        toggleInputNode(state,action){
             state.showInputNode = action.payload
         },
-        toggleOutputNode(state,action) {
+        toggleOutputNode(state,action){
             state.showOutputNode = action.payload
+        },
+        togglePipeline(state){
+            state.showPipeline = !state.showPipeline
         }
     }
 })
 
-export const {toggleSidebar, toggleInputNode, toggleOutputNode} = toggleSlice.actions;
+export const {toggleSidebar, toggleInputNode, toggleOutputNode, togglePipeline} = toggleSlice.actions;
 
 export default toggleSlice.reducer;

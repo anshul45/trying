@@ -14,7 +14,7 @@ import {
   type Edge,
   type Node,
   ReactFlowProvider,
-  useReactFlow
+  useReactFlow,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
@@ -25,6 +25,10 @@ import TextNode from "./nodes/TextNode";
 import DnDProvider from "./dnd/DnDProvider";
 import CustomEdge from "./CustomEdge";
 import OpenAINode from "./nodes/llmNodes/OpenaiNode";
+import { PanelGroup,Panel, PanelResizeHandle } from "react-resizable-panels";
+import RunPipeline from "../pipeline/runPipeline/RunPipeline";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/redux/store";
 
 
  function Flow() {
@@ -125,10 +129,30 @@ import OpenAINode from "./nodes/llmNodes/OpenaiNode";
   );
 }
 
-export default () => (
+export default () =>{ 
+  
+  const openPipeline = useSelector((store:RootState) => store.toggle.showPipeline)
+  return(
   <ReactFlowProvider>
+      <PanelGroup direction="horizontal">
+      <Panel defaultSizePercentage={70} minSizePercentage={0}>
     <DnDProvider>
       <Flow />
-    </DnDProvider>
+      </DnDProvider>
+      </Panel>
+      {openPipeline && (
+        <>
+            <PanelResizeHandle   style={{ 
+              width: "3px", 
+              backgroundColor: "white", 
+              borderLeft: "2px solid #6B7280" 
+            }}  />
+            <Panel defaultSizePercentage={30} minSizePercentage={30}>
+              <RunPipeline  />
+            </Panel>
+            </>
+          )}
+      </PanelGroup>
   </ReactFlowProvider>
-);
+)
+}

@@ -5,12 +5,11 @@ import ChatBot from "./ChatBot";
 import OptionSelector from "../../ui/OptionSelector";
 import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { toggleInputNode } from "@/lib/redux/slice/toggleSlice";
+import { toggleInputNode, togglePipeline } from "@/lib/redux/slice/toggleSlice";
 import { WebSocketService, webSocketService } from '@/lib/webhook/websocket';
 import { RunPipelineProps } from "@/lib/common/types";
 
-
-const RunPipeline:FC<RunPipelineProps> = ({setOpenPipeline}) => {
+const RunPipeline:FC<RunPipelineProps> = () => {
   const[options,setOptions] = useState<string[]>(["STANDARD","CHATBOT"])
   const[selectedOption,setSelectedOption] = useState<string>("CHATBOT")
     const socketRef = useRef<WebSocketService | null>(null);
@@ -38,7 +37,7 @@ useEffect(() => {
   return (
     <Box className=" h-full  pl-3.5 pr-2.5 bg-white">
         <Flex align='center' pt={10} gap={20}>
-        <FaAngleRight size={25} className="cursor-pointer" onClick={() => setOpenPipeline(false)}/>
+        <FaAngleRight size={25} className="cursor-pointer" onClick={() => dispatch(togglePipeline())}/>
         <Text size="lg">Run Pipeline</Text>
         </Flex>
         <div className="my-5">

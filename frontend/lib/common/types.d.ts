@@ -11,7 +11,6 @@ interface FilterComponentProps{
 }
 
 interface RunPipelineProps{
-  setOpenPipeline:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface StandardProps {

@@ -1,17 +1,15 @@
 "use client";
-
 import Flow from '@/app/components/ReactFlow/Flow';
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import Header from '@/app/components/Header';
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mantine/core';
-import RunPipeline from '@/app/components/pipeline/runPipeline/RunPipeline';
 import { IoIosPlay } from "react-icons/io";
-import { useDispatch } from 'react-redux';
-import {toggleOutputNode } from "@/lib/redux/slice/toggleSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import {toggleOutputNode, togglePipeline } from "@/lib/redux/slice/toggleSlice";
+import { RootState } from '@/lib/redux/store';
 
 const Page = () => {
-  const [openPipeline, setOpenPipeline] = useState<boolean>(false);
+  const openPipeline = useSelector((store:RootState) => store.toggle.showPipeline)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -24,8 +22,7 @@ const Page = () => {
     {
       title: <IoIosPlay />,
       action: () => {
-        // console.log("Toggling openPipeline:", !openPipeline);
-        setOpenPipeline(!openPipeline);
+        dispatch(togglePipeline())
       },
       type: "node",
     },
@@ -34,26 +31,7 @@ const Page = () => {
   return (
     <Box m={10} className="border-[1px] rounded-md ">
             <Header title="Pipelines" buttons={buttons} />
-          <PanelGroup direction="horizontal">
-            <Panel defaultSizePercentage={70} minSizePercentage={-10}>
       <Flow />
-            </Panel>
-      {openPipeline && (
-        <>
-            <PanelResizeHandle   style={{ 
-              width: "3px", 
-              backgroundColor: "white", 
-              borderLeft: "2px solid #6B7280" 
-            }}  />
-            <Panel defaultSizePercentage={30} minSizePercentage={30}>
-              <Box>
-              <RunPipeline setOpenPipeline={setOpenPipeline} />
-              </Box>
-            </Panel>
-            </>
-          )}
-          </PanelGroup>
-      
     </Box>
   );
 };
