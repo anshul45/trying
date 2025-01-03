@@ -16,4 +16,5 @@ import {
     onConnect: OnConnect;
     setNodes: (nodes: AppNode[]) => void;
     setEdges: (edges: Edge[]) => void;
+    updateNodeData:(id:string, newData:any) => void
   };

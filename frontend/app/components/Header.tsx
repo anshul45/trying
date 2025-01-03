@@ -1,14 +1,16 @@
 "use client"
 import { HeaderProps } from '@/lib/common/types';
+import toggleStore from '@/lib/zustand/toggleStore.ts/toggleStore';
 import { Button, Flex, Text } from '@mantine/core'
 import { FC } from 'react';
 import { LuPanelRightOpen } from 'react-icons/lu'
 
 const Header:FC<HeaderProps> = ({title,buttons}) => {
+  const {updateShowSideBar} = toggleStore()
   return (
     <Flex py={9} px={15} bottom={10} align='center' justify='space-between' className="border-b-[1px]">
     <Flex align='center' gap={9}>
-  <LuPanelRightOpen size={16} className='cursor-pointer'/>
+  <LuPanelRightOpen size={16} className='cursor-pointer' onClick={() => updateShowSideBar() }/>
   <Text className="font-medium text-[15px]">{title}</Text>
     </Flex>
     <Flex align='center' gap={10}>

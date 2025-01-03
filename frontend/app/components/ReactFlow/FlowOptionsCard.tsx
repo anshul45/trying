@@ -17,8 +17,13 @@ const FlowOptionsCard = ({ title, icon, setNodes }: any) => {
   const label = useNodeLabel(optionMap[title]);
 
   const onDragStart = (event: React.DragEvent, nodeType: string) => {
-    setType(nodeType);
-    const data = JSON.stringify({ type: nodeType, label: `input_${label}` });
+    const nodeLabel =
+    nodeType === "inputNode"
+      ? `input_${label}`
+      : nodeType === "outputNode"
+      ? `output_${label}`
+      : nodeType;
+    const data = JSON.stringify({ type: nodeType, label: nodeLabel });
     event.dataTransfer.setData("application/json", data);
     event.dataTransfer.effectAllowed = "move";
   };

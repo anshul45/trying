@@ -4,32 +4,37 @@ import { Box, Select, Text, Textarea, TextInput } from "@mantine/core";
 import { MdInput,  } from "react-icons/md";
 import NodesHead from "./NodesHead";
 import type { NodeProps } from '@xyflow/react';
+import flowStore from "@/lib/zustand/flowStore/flowStore";
+import toggleStore from "@/lib/zustand/toggleStore.ts/toggleStore";
 
 
 
 const InputNode = ({ data, id }:NodeProps) => {
-  const { updateNodeData,getNodes } = useReactFlow();
+
+  const {updateNodeData} = flowStore()
+  const {showInputBox} = toggleStore()
   const [inputValue, setInputValue] = useState<string>(data?.label);
-const [inputData,setInputData] = useState<string>(data?.inputData)
-
-  const nodes = getNodes()
-  
-
+  const [inputData,setInputData] = useState<string>(data?.inputData)
 
   useEffect(() => {
-    const data = {
+    setInputData(data?.inputData)
+  },[data?.inputData])
+  
+
+  useEffect(() => {
+    const newData = {
       label: inputValue,
     };
-    updateNodeData(id, data);
+    updateNodeData(id, newData);
   }, [inputValue]);
 
  
 
   useEffect(() => {
-    const data = {
+    const newData = {
       inputData: inputData,
     };
-    updateNodeData(id, data);
+    updateNodeData(id, newData);
   }, [inputData]);
 
   return (
@@ -57,7 +62,7 @@ const [inputData,setInputData] = useState<string>(data?.inputData)
             label: { color: "grey" },
           }}
         />
-        {true &&<Box mb={3}>
+        {showInputBox &&<Box mb={3}>
         <Textarea
           size="compact-sm"
           label="Pipeline Run input"

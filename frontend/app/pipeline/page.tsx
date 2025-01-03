@@ -12,8 +12,6 @@ const Pipeline = () => {
   const router = useRouter()
   const session = useSession()
 
-  console.log(session)
-
   const pipelinesButton = [{title:"Run History",action: () => router.push("/pipeline/history")},{title:"Display",action: () => setShowModal(true)},{title:"New",action: () => router.push("/pipeline/new")}]
 
   return (<Box bg='#f1f3f4' h='100vh' p={10}>

@@ -12,12 +12,17 @@ const RunPipeline:FC<RunPipelineProps> = () => {
   const[options,setOptions] = useState<string[]>(["STANDARD","CHATBOT"])
   const[selectedOption,setSelectedOption] = useState<string>("CHATBOT")
   const socketRef = useRef<WebSocketService | null>(null);
-  const {updateShowPipeline} = toggleStore()
+  const {updateShowPipeline,updateShowInputBox} = toggleStore()
   
 
 useEffect(() => {
       selectedOption === "STANDARD" 
+      updateShowInputBox()
 },[selectedOption])
+
+
+
+
 
 useEffect(() => {
     const socket = webSocketService();

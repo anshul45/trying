@@ -3,6 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import SideBar from "./SideBar";
+import toggleStore from "@/lib/zustand/toggleStore.ts/toggleStore";
 
 const PanelGroup = dynamic(() => import("react-resizable-panels").then((mod) => mod.PanelGroup), { ssr: false });
 const Panel = dynamic(() => import("react-resizable-panels").then((mod) => mod.Panel), { ssr: false });
@@ -17,6 +18,7 @@ const ResizableComponentProvider = ({ children }: ProvidersProps) => {
 
   const sidebarNotVisible = ["/login", "/login/password", "/register", "/register/password", "/"];
   const visible = useMemo(() => !sidebarNotVisible.includes(path), [path]);
+  const {showSideBar} = toggleStore()
 
 
   useEffect(() => {
@@ -27,7 +29,7 @@ const ResizableComponentProvider = ({ children }: ProvidersProps) => {
   return (
     <SessionProvider>
       <PanelGroup direction="horizontal">
-        {visible && true && (
+        {visible && showSideBar && (
           <>
             <Panel defaultSizePercentage={19} minSizePercentage={19} maxSizePercentage={30}>
               <SideBar />
@@ -36,9 +38,9 @@ const ResizableComponentProvider = ({ children }: ProvidersProps) => {
           </>
         )}
         <Panel
-          defaultSizePercentage={visible && true ? 81 : 100}
-          minSizePercentage={visible && true ? 70 : 100}
-          maxSizePercentage={visible && true ? 81 : 100}
+          defaultSizePercentage={visible && showSideBar ? 81 : 100}
+          minSizePercentage={visible && showSideBar ? 70 : 100}
+          maxSizePercentage={visible && showSideBar ? 81 : 100}
         >
           {children}
         </Panel>

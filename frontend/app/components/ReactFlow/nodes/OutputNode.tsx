@@ -4,18 +4,19 @@ import { Box, Select,  Textarea,  TextInput } from '@mantine/core'
 import { MdOutput } from 'react-icons/md'
 import NodesHead from './NodesHead';
 import type { NodeProps } from '@xyflow/react';
+import flowStore from '@/lib/zustand/flowStore/flowStore';
 
 
 const OutputNode = ({id,data}:NodeProps) => {
- const { updateNodeData } = useReactFlow();
+ const { updateNodeData } = flowStore()
   const[inputValue,setInputValue] = useState<string>(data?.label)
 
 
     useEffect(() => {
-      const data = {
+      const newData = {
         label: inputValue,
       };
-      updateNodeData(id, data);
+      updateNodeData(id, newData);
     }, [inputValue]);
 
   

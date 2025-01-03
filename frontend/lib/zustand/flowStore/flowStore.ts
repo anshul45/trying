@@ -33,6 +33,13 @@ const flowStore = create<FlowState>((set, get) => ({
   setEdges: (edges) => {
     set({ edges });
   },
+  updateNodeData:(id,newData) => {
+    set((state) => ({
+      nodes:state.nodes.map((node) => 
+      node.id === id ? {...node, data:{...node.data, ...newData}} : node
+      )
+    }))
+  }
 }));
  
 export default flowStore;
