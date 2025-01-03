@@ -1,6 +1,4 @@
 "use client"
-import { Provider } from "react-redux";
-import { store } from "@/lib/redux/store";
 import React from "react";
 
 import ResizableComponentProvider from "./ResizableComponentProvider";
@@ -11,11 +9,9 @@ interface ReduxProvidersProps {
 
 const ReduxProvider = ({children}:ReduxProvidersProps) => {
     return(
-        <Provider store={store}>
         <ResizableComponentProvider>
         {children}
         </ResizableComponentProvider>
-        </Provider>
     )
 }
 

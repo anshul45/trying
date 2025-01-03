@@ -7,16 +7,12 @@ import {
   Controls,
   MiniMap,
   ReactFlow,
-  addEdge,
-  useNodesState,
-  useEdgesState,
-  type OnConnect,
   type Edge,
   type Node,
   ReactFlowProvider,
   useReactFlow,
 } from "@xyflow/react";
-
+import { useShallow } from 'zustand/react/shallow';
 import "@xyflow/react/dist/style.css";
 import FlowOptions from "./FlowOptions";
 import InputNode from "./nodes/InputNode";
@@ -26,12 +22,28 @@ import DnDProvider from "./dnd/DnDProvider";
 import CustomEdge from "./CustomEdge";
 import OpenAINode from "./nodes/llmNodes/OpenaiNode";
 import { PanelGroup,Panel, PanelResizeHandle } from "react-resizable-panels";
-import RunPipeline from "../pipeline/runPipeline/RunPipeline";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/redux/store";
+import RunPipeline from "../pipeline/runPipeline/RunPipeline"
+import flowStore from "@/lib/zustand/flowStore/flowStore";
+import { FlowState } from "@/lib/zustand/flowStore/types";
+import toggleStore from "@/lib/zustand/toggleStore.ts/toggleStore";
+
+const selector = (state:FlowState) => ({
+  nodes: state.nodes,
+  edges: state.edges,
+  onNodesChange: state.onNodesChange,
+  onEdgesChange: state.onEdgesChange,
+  onConnect: state.onConnect,
+  setNodes:state.setNodes
+});
+
 
 
  function Flow() {
+
+  const { nodes, edges, onNodesChange, onEdgesChange, onConnect,setNodes } = flowStore(
+    useShallow(selector),
+  );
+
   const nodeTypes = useMemo(() =>({
     inputNode:InputNode,
     outputNode:OutputNode,
@@ -44,55 +56,42 @@ import { RootState } from "@/lib/redux/store";
   }), []);
  
 
-  
-  
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  // console.log(nodes)
-  
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  // console.log(edges)
+
+
   const [openOptions, setOpenOptions] = useState<boolean>(false)
   const { screenToFlowPosition } = useReactFlow();
 
 
-  // Handle new connections between nodes
-  const onConnect: OnConnect = useCallback(
-    (connection) =>{
-       setEdges((eds) => addEdge({...connection, "type":'edge1'}, eds))},
-    [setEdges]
-  );
-
-  const onEdgesDelete = useCallback((edges:Edge[]) => {
-    // console.log("edges",edges)
-  },[])
-
-  const onNodesDelete = useCallback((nodes:Node[])=> {
-    // console.log("nodes",nodes)
-  },[])
+ 
+  const onEdgesDelete = useCallback((edges: Edge[]) => {
+    console.log("Deleted edges:", edges);
+  }, []);
+  
+  const onNodesDelete = useCallback((nodes: Node[]) => {
+    console.log("Deleted nodes:", nodes);
+  }, []);
 
  
   
 
   const onDrop = useCallback(
-    (event:React.DragEvent) => {
-    event.preventDefault();
-  const data = event.dataTransfer.getData("application/json");
-
-  const { type,label } = JSON.parse(data)
+    (event: React.DragEvent) => {
+      event.preventDefault();
+      const data = event.dataTransfer.getData("application/json");
   
-  const id = crypto.randomUUID();
-
-  const position = screenToFlowPosition({
-    x: event.clientX,
-    y: event.clientY,
-  });
-     
-      
-  setNodes((prev: any) => [...prev, { id, position, type,data:{label} }]);
+      const { type, label } = JSON.parse(data);
+      const id = crypto.randomUUID();
+  
+      const position = screenToFlowPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+  
+      setNodes(id, position, type, { label:label });
     },
-    [screenToFlowPosition,],
+    [screenToFlowPosition,setNodes]
   );
-
+  
 
   const onDragOver = useCallback((event) => {
     event.preventDefault();
@@ -130,8 +129,9 @@ import { RootState } from "@/lib/redux/store";
 }
 
 export default () =>{ 
+
+  const {showPipeline} = toggleStore()
   
-  const openPipeline = useSelector((store:RootState) => store.toggle.showPipeline)
   return(
   <ReactFlowProvider>
       <PanelGroup direction="horizontal">
@@ -140,7 +140,7 @@ export default () =>{
       <Flow />
       </DnDProvider>
       </Panel>
-      {openPipeline && (
+      {showPipeline && (
         <>
             <PanelResizeHandle   style={{ 
               width: "3px", 

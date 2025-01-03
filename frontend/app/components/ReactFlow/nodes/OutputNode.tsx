@@ -3,15 +3,11 @@ import { Handle, Position, useReactFlow } from '@xyflow/react'
 import { Box, Select,  Textarea,  TextInput } from '@mantine/core'
 import { MdOutput } from 'react-icons/md'
 import NodesHead from './NodesHead';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/redux/store';
 import type { NodeProps } from '@xyflow/react';
 
 
 const OutputNode = ({id,data}:NodeProps) => {
  const { updateNodeData } = useReactFlow();
-  const selected = useSelector((state:RootState) => state.toggle.showOutputNode)
-  const outputData = useSelector((state:RootState) => state.data.outputData)
   const[inputValue,setInputValue] = useState<string>(data?.label)
 
 
@@ -34,7 +30,7 @@ const OutputNode = ({id,data}:NodeProps) => {
       data={['Text', 'File', 'Audio']}
       styles={{input:{border:"none"},label:{color:"grey"}}}
     />
-     {selected &&<Box mb={3}>
+     {true &&<Box mb={3}>
             <Textarea
               size="compact-sm"
               label="Pipeline Run input"
@@ -42,7 +38,7 @@ const OutputNode = ({id,data}:NodeProps) => {
               autosize
               minRows={2}
               maxRows={6}
-              value={outputData}
+              value=''
               styles={{
                 input:{paddingLeft:"5px", paddingTop:"3px",paddingBottom:"3px"},
                 label: { color: "black" },

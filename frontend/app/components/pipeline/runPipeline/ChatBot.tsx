@@ -1,24 +1,21 @@
 import { ChatBotProps } from '@/lib/common/types';
-import { updateOutputData } from '@/lib/redux/slice/dataSlice';
+// import { updateOutputData } from '@/lib/redux/slice/dataSlice';
 import { Box, Center, Divider, Flex, Select, Text, TextInput } from '@mantine/core';
 import React, { FC, useEffect, useState } from 'react'
 import { LuInfo } from "react-icons/lu";
 import { LuSend } from "react-icons/lu";
-import { useDispatch } from 'react-redux';
 
 
 
 const ChatBot :FC<ChatBotProps> = ({socketRef}) => {
   const[input,setInput] = useState<string>("")
   const [messages, setMessages] = useState<{ user: string; message: string }[]>([]);
-  const dispatch = useDispatch()
 
     useEffect(() => {
       socketRef.current?.onMessage((message:string) => 
       {       
          const data = JSON.parse(message);
 
-         dispatch(updateOutputData(data?.message))
 
       setMessages((prev) => [...(prev || []), { user: "Agent", message: data.message }])
 }

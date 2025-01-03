@@ -2,8 +2,6 @@ import { Box, Center, Text, Title } from "@mantine/core"
 import { useDnD } from "./dnd/UseDnD";
 import { useEffect, useState } from "react";
 import { useReactFlow } from "@xyflow/react";
-import { useDispatch } from "react-redux";
-import { updateinputNodes } from "@/lib/redux/slice/dataSlice";
 
 
 const FlowOptionsCard = ({ title, icon, setNodes }: any) => {
@@ -38,10 +36,7 @@ const FlowOptionsCard = ({ title, icon, setNodes }: any) => {
         ? `output_${label}`
         : title;
 
-    setNodes((prev: any) => [
-      ...prev,
-      { id, position, type: optionMap[title], data: { label: nodeLabel } },
-    ]);
+    setNodes(id, position, optionMap[title], { label: nodeLabel });
   };
 
   return (
@@ -69,7 +64,6 @@ const FlowOptionsCard = ({ title, icon, setNodes }: any) => {
 
 
 const useNodeLabel = (nodeType: string): number => {
-  const dispatch = useDispatch()
   const { getNodes } = useReactFlow();
   const [label, setLabel] = useState(0);
 
@@ -77,9 +71,6 @@ const useNodeLabel = (nodeType: string): number => {
     const updateLabel = () => {
       const nodes = getNodes();
       const filteredNodes = nodes.filter((node) => node.type === nodeType);
-      if(nodeType==="inputNode") {
-        dispatch(updateinputNodes(filteredNodes))
-      }
       setLabel(filteredNodes.length);
     };
 

@@ -4,25 +4,21 @@ import Header from '@/app/components/Header';
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mantine/core';
 import { IoIosPlay } from "react-icons/io";
-import { useDispatch, useSelector } from 'react-redux';
-import {toggleOutputNode, togglePipeline } from "@/lib/redux/slice/toggleSlice";
-import { RootState } from '@/lib/redux/store';
+import toggleStore from '@/lib/zustand/toggleStore.ts/toggleStore';
 
 const Page = () => {
-  const openPipeline = useSelector((store:RootState) => store.toggle.showPipeline)
-  const dispatch = useDispatch()
+
+  const {updateShowPipeline} = toggleStore()
 
   useEffect(() => {
-    openPipeline
-    ? dispatch(toggleOutputNode(true))
-    : dispatch(toggleOutputNode(false)) 
-  },[openPipeline])
+    
+  },[])
 
   const buttons = [
     {
       title: <IoIosPlay />,
       action: () => {
-        dispatch(togglePipeline())
+        updateShowPipeline()
       },
       type: "node",
     },

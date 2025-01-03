@@ -3,33 +3,34 @@ import { Handle, Position, useReactFlow } from "@xyflow/react";
 import { Box, Select, Text, Textarea, TextInput } from "@mantine/core";
 import { MdInput,  } from "react-icons/md";
 import NodesHead from "./NodesHead";
-import { checkNode } from "@/lib/flow/checkNodes";
-import { useSelector,useDispatch } from "react-redux";
-import { RootState } from "@/lib/redux/store";
-import { updateInputData } from "@/lib/redux/slice/dataSlice";
 import type { NodeProps } from '@xyflow/react';
 
 
 
 const InputNode = ({ data, id }:NodeProps) => {
-  const { updateNodeData } = useReactFlow();
+  const { updateNodeData,getNodes } = useReactFlow();
   const [inputValue, setInputValue] = useState<string>(data?.label);
-  const dispatch = useDispatch()
+const [inputData,setInputData] = useState<string>(data?.inputData)
 
-  checkNode(id)
+  const nodes = getNodes()
+  
 
-  const selected = useSelector((store : RootState) => store.toggle.showInputNode)
 
-  const inputData = useSelector((store:RootState) => store.data.inputData)
-
- 
-  // Update node data when inputValue changes
   useEffect(() => {
     const data = {
       label: inputValue,
     };
     updateNodeData(id, data);
   }, [inputValue]);
+
+ 
+
+  useEffect(() => {
+    const data = {
+      inputData: inputData,
+    };
+    updateNodeData(id, data);
+  }, [inputData]);
 
   return (
     <Box className="border-2 rounded-md drop-shadow-sm" bg="white" px={10} py={5} w={260}>
@@ -56,7 +57,7 @@ const InputNode = ({ data, id }:NodeProps) => {
             label: { color: "grey" },
           }}
         />
-        {selected &&<Box mb={3}>
+        {true &&<Box mb={3}>
         <Textarea
           size="compact-sm"
           label="Pipeline Run input"
@@ -65,7 +66,7 @@ const InputNode = ({ data, id }:NodeProps) => {
           minRows={2}
           maxRows={6}
           value={inputData}
-          onChange={e => dispatch(updateInputData(e.target.value))}
+          onChange={e => setInputData(e.target.value)}
           styles={{
             input:{paddingLeft:"5px", paddingTop:"3px",paddingBottom:"3px"},
             label: { color: "black" },
